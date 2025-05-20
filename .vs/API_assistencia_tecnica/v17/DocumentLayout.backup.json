@@ -1,0 +1,143 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|c:\\users\\ilziv\\onedrive - ifro.edu.br\\\u00E1rea de trabalho\\raiane\\programa\u00E7\u00E3o com acesso a bd\\2025\\api_assistencia_tecnica\\api_assistencia_tecnica\\models\\orcamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|solutionrelative:api_assistencia_tecnica\\models\\orcamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|c:\\users\\ilziv\\onedrive - ifro.edu.br\\\u00E1rea de trabalho\\raiane\\programa\u00E7\u00E3o com acesso a bd\\2025\\api_assistencia_tecnica\\api_assistencia_tecnica\\models\\reparo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|solutionrelative:api_assistencia_tecnica\\models\\reparo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|c:\\users\\ilziv\\onedrive - ifro.edu.br\\\u00E1rea de trabalho\\raiane\\programa\u00E7\u00E3o com acesso a bd\\2025\\api_assistencia_tecnica\\api_assistencia_tecnica\\models\\equipamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|solutionrelative:api_assistencia_tecnica\\models\\equipamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|c:\\users\\ilziv\\onedrive - ifro.edu.br\\\u00E1rea de trabalho\\raiane\\programa\u00E7\u00E3o com acesso a bd\\2025\\api_assistencia_tecnica\\api_assistencia_tecnica\\models\\fornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|solutionrelative:api_assistencia_tecnica\\models\\fornecedor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|c:\\users\\ilziv\\onedrive - ifro.edu.br\\\u00E1rea de trabalho\\raiane\\programa\u00E7\u00E3o com acesso a bd\\2025\\api_assistencia_tecnica\\api_assistencia_tecnica\\models\\pecas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|solutionrelative:api_assistencia_tecnica\\models\\pecas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|c:\\users\\ilziv\\onedrive - ifro.edu.br\\\u00E1rea de trabalho\\raiane\\programa\u00E7\u00E3o com acesso a bd\\2025\\api_assistencia_tecnica\\api_assistencia_tecnica\\models\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|solutionrelative:api_assistencia_tecnica\\models\\cliente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|c:\\users\\ilziv\\onedrive - ifro.edu.br\\\u00E1rea de trabalho\\raiane\\programa\u00E7\u00E3o com acesso a bd\\2025\\api_assistencia_tecnica\\api_assistencia_tecnica\\api_assistencia_tecnica.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{BEBA225C-F758-4989-96A6-45BA4875B42D}|API_assistencia_tecnica\\API_assistencia_tecnica.csproj|solutionrelative:api_assistencia_tecnica\\api_assistencia_tecnica.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Orcamento.cs",
+              "DocumentMoniker": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Orcamento.cs",
+              "RelativeDocumentMoniker": "API_assistencia_tecnica\\Models\\Orcamento.cs",
+              "ToolTip": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Orcamento.cs",
+              "RelativeToolTip": "API_assistencia_tecnica\\Models\\Orcamento.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T22:08:47.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Reparo.cs",
+              "DocumentMoniker": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Reparo.cs",
+              "RelativeDocumentMoniker": "API_assistencia_tecnica\\Models\\Reparo.cs",
+              "ToolTip": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Reparo.cs",
+              "RelativeToolTip": "API_assistencia_tecnica\\Models\\Reparo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T22:08:47.451Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Equipamento.cs",
+              "DocumentMoniker": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Equipamento.cs",
+              "RelativeDocumentMoniker": "API_assistencia_tecnica\\Models\\Equipamento.cs",
+              "ToolTip": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Equipamento.cs",
+              "RelativeToolTip": "API_assistencia_tecnica\\Models\\Equipamento.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T22:08:47.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Fornecedor.cs",
+              "DocumentMoniker": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Fornecedor.cs",
+              "RelativeDocumentMoniker": "API_assistencia_tecnica\\Models\\Fornecedor.cs",
+              "ToolTip": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Fornecedor.cs",
+              "RelativeToolTip": "API_assistencia_tecnica\\Models\\Fornecedor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T22:08:47.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Pecas.cs",
+              "DocumentMoniker": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Pecas.cs",
+              "RelativeDocumentMoniker": "API_assistencia_tecnica\\Models\\Pecas.cs",
+              "ToolTip": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Pecas.cs",
+              "RelativeToolTip": "API_assistencia_tecnica\\Models\\Pecas.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T22:08:47.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Cliente.cs",
+              "DocumentMoniker": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Cliente.cs",
+              "RelativeDocumentMoniker": "API_assistencia_tecnica\\Models\\Cliente.cs",
+              "ToolTip": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\Models\\Cliente.cs",
+              "RelativeToolTip": "API_assistencia_tecnica\\Models\\Cliente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-20T22:08:45.269Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "API_assistencia_tecnica",
+              "DocumentMoniker": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj",
+              "RelativeDocumentMoniker": "API_assistencia_tecnica\\API_assistencia_tecnica.csproj",
+              "ToolTip": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\\u00C1rea de Trabalho\\Raiane\\Programa\u00E7\u00E3o com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj",
+              "RelativeToolTip": "API_assistencia_tecnica\\API_assistencia_tecnica.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-05-20T22:08:42.988Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
