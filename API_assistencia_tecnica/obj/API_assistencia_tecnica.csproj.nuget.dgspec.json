@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenzi\\OneDrive\\Área de Trabalho\\ADS\\6° periodo\\Programação com Acesso a Banco de Dados\\TRABALHO\\API_Assistencia_Tecnica_PABD\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj": {}
+    "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\Área de Trabalho\\Raiane\\Programação com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenzi\\OneDrive\\Área de Trabalho\\ADS\\6° periodo\\Programação com Acesso a Banco de Dados\\TRABALHO\\API_Assistencia_Tecnica_PABD\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj": {
+    "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\Área de Trabalho\\Raiane\\Programação com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenzi\\OneDrive\\Área de Trabalho\\ADS\\6° periodo\\Programação com Acesso a Banco de Dados\\TRABALHO\\API_Assistencia_Tecnica_PABD\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj",
+        "projectUniqueName": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\Área de Trabalho\\Raiane\\Programação com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj",
         "projectName": "API_assistencia_tecnica",
-        "projectPath": "C:\\Users\\lenzi\\OneDrive\\Área de Trabalho\\ADS\\6° periodo\\Programação com Acesso a Banco de Dados\\TRABALHO\\API_Assistencia_Tecnica_PABD\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj",
-        "packagesPath": "C:\\Users\\lenzi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenzi\\OneDrive\\Área de Trabalho\\ADS\\6° periodo\\Programação com Acesso a Banco de Dados\\TRABALHO\\API_Assistencia_Tecnica_PABD\\API_assistencia_tecnica\\obj\\",
+        "projectPath": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\Área de Trabalho\\Raiane\\Programação com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\API_assistencia_tecnica.csproj",
+        "packagesPath": "C:\\Users\\ilziv\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ilziv\\OneDrive - ifro.edu.br\\Área de Trabalho\\Raiane\\Programação com acesso a BD\\2025\\API_assistencia_tecnica\\API_assistencia_tecnica\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\lenzi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilziv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,11 +38,37 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.15, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.15, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -50,7 +80,15 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
