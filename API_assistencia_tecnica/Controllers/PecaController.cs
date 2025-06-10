@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Services;
+using API_assistencia_tecnica.Dtos;
 
 namespace API_assistencia_tecnica.Controllers
 {
@@ -33,16 +33,16 @@ namespace API_assistencia_tecnica.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Peca peca)
+        public async Task<IActionResult> Create([FromBody] PecaDto dto)
         {
-            var nova = await _service.CreateAsync(peca);
+            var nova = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = nova.Id }, nova);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] Peca peca)
+        public async Task<IActionResult> Update(int id, [FromBody] PecaDto dto)
         {
-            var atualizada = await _service.UpdateAsync(id, peca);
+            var atualizada = await _service.UpdateAsync(id, dto);
             if (atualizada == null)
                 return NotFound("Peça não encontrada.");
             return Ok(atualizada);

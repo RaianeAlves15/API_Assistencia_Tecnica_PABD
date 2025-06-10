@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Services;
+using API_assistencia_tecnica.Dtos;
 
 namespace API_assistencia_tecnica.Controllers
 {
@@ -33,9 +33,9 @@ namespace API_assistencia_tecnica.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Reparo reparo)
+        public async Task<IActionResult> Create([FromBody] ReparoDto dto)
         {
-            var novo = await _service.CreateAsync(reparo);
+            var novo = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = novo.IdLancamentoReparo }, novo);
         }
 

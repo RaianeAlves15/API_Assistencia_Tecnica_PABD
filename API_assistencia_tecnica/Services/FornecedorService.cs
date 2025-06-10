@@ -1,6 +1,8 @@
-﻿using API_assistencia_tecnica.DataContexts;
+﻿using Microsoft.EntityFrameworkCore;
 using API_assistencia_tecnica.Models;
-using Microsoft.EntityFrameworkCore;
+using API_assistencia_tecnica.Dtos;
+using API_assistencia_tecnica.DataContexts;
+
 
 namespace API_assistencia_tecnica.Services
 {
@@ -23,32 +25,50 @@ namespace API_assistencia_tecnica.Services
             return await _context.Fornecedores.FirstOrDefaultAsync(f => f.IdFornecedor == id);
         }
 
-        public async Task<Fornecedor> CreateAsync(Fornecedor fornecedor)
+        public async Task<Fornecedor> CreateAsync(FornecedorDto dto)
         {
+            var fornecedor = new Fornecedor
+            {
+                NomeFornecedor = dto.NomeFornecedor,
+                CnpjCpf = dto.CnpjCpf,
+                InscricaoEstadual = dto.InscricaoEstadual,
+                Email = dto.Email,
+                Telefone = dto.Telefone,
+                TelefoneCelular = dto.TelefoneCelular,
+                NumeroDoImovel = dto.NumeroDoImovel,
+                Cep = dto.Cep,
+                Bairro = dto.Bairro,
+                Cidade = dto.Cidade,
+                Estado = dto.Estado,
+                Pais = dto.Pais,
+                Site = dto.Site,
+                Representante = dto.Representante
+            };
+
             _context.Fornecedores.Add(fornecedor);
             await _context.SaveChangesAsync();
             return fornecedor;
         }
 
-        public async Task<Fornecedor?> UpdateAsync(int id, Fornecedor fornecedor)
+        public async Task<Fornecedor?> UpdateAsync(int id, FornecedorDto dto)
         {
             var existing = await _context.Fornecedores.FindAsync(id);
             if (existing == null) return null;
 
-            existing.NomeFornecedor = fornecedor.NomeFornecedor;
-            existing.CnpjCpf = fornecedor.CnpjCpf;
-            existing.InscricaoEstadual = fornecedor.InscricaoEstadual;
-            existing.Email = fornecedor.Email;
-            existing.Telefone = fornecedor.Telefone;
-            existing.TelefoneCelular = fornecedor.TelefoneCelular;
-            existing.NumeroDoImovel = fornecedor.NumeroDoImovel;
-            existing.Cep = fornecedor.Cep;
-            existing.Bairro = fornecedor.Bairro;
-            existing.Cidade = fornecedor.Cidade;
-            existing.Estado = fornecedor.Estado;
-            existing.Pais = fornecedor.Pais;
-            existing.Site = fornecedor.Site;
-            existing.Representante = fornecedor.Representante;
+            existing.NomeFornecedor = dto.NomeFornecedor;
+            existing.CnpjCpf = dto.CnpjCpf;
+            existing.InscricaoEstadual = dto.InscricaoEstadual;
+            existing.Email = dto.Email;
+            existing.Telefone = dto.Telefone;
+            existing.TelefoneCelular = dto.TelefoneCelular;
+            existing.NumeroDoImovel = dto.NumeroDoImovel;
+            existing.Cep = dto.Cep;
+            existing.Bairro = dto.Bairro;
+            existing.Cidade = dto.Cidade;
+            existing.Estado = dto.Estado;
+            existing.Pais = dto.Pais;
+            existing.Site = dto.Site;
+            existing.Representante = dto.Representante;
 
             _context.Fornecedores.Update(existing);
             await _context.SaveChangesAsync();

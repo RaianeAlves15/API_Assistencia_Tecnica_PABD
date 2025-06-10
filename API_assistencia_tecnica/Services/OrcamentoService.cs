@@ -1,6 +1,7 @@
-﻿using API_assistencia_tecnica.DataContexts;
+﻿using Microsoft.EntityFrameworkCore;
 using API_assistencia_tecnica.Models;
-using Microsoft.EntityFrameworkCore;
+using API_assistencia_tecnica.Dtos;
+using API_assistencia_tecnica.DataContexts;
 
 namespace API_assistencia_tecnica.Services
 {
@@ -23,8 +24,39 @@ namespace API_assistencia_tecnica.Services
             return await _context.Orcamentos.FirstOrDefaultAsync(o => o.IdOrcamento == id);
         }
 
-        public async Task<Orcamento> CreateAsync(Orcamento orcamento)
+        public async Task<Orcamento> CreateAsync(OrcamentoDto dto)
         {
+            var orcamento = new Orcamento
+            {
+                // Cliente
+                NomeCliente = dto.NomeCliente,
+                Cpf = dto.Cpf,
+                Rg = dto.Rg,
+                Telefone = dto.Telefone,
+                Rua = dto.Rua,
+                Bairro = dto.Bairro,
+                Cidade = dto.Cidade,
+                Cep = dto.Cep,
+
+                // Equipamento
+                NomeEquipamento = dto.NomeEquipamento,
+                Modelo = dto.Modelo,
+                Fabricante = dto.Fabricante,
+                AnoFabricacao = dto.AnoFabricacao,
+                Voltagem = dto.Voltagem,
+                Amperagem = dto.Amperagem,
+
+                // Reparo
+                Pecas = dto.Pecas,
+                FormaDePagamento = dto.FormaDePagamento,
+                PrazoDeEntrega = dto.PrazoDeEntrega,
+                Observacao = dto.Observacao,
+
+                // Valores
+                ValorSemDesconto = dto.ValorSemDesconto,
+                ValorComDesconto = dto.ValorComDesconto
+            };
+
             _context.Orcamentos.Add(orcamento);
             await _context.SaveChangesAsync();
             return orcamento;

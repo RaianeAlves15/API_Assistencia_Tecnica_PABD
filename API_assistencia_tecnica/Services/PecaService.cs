@@ -1,6 +1,7 @@
-﻿using API_assistencia_tecnica.DataContexts;
+﻿using Microsoft.EntityFrameworkCore;
 using API_assistencia_tecnica.Models;
-using Microsoft.EntityFrameworkCore;
+using API_assistencia_tecnica.Dtos;
+using API_assistencia_tecnica.DataContexts;
 
 namespace API_assistencia_tecnica.Services
 {
@@ -23,27 +24,40 @@ namespace API_assistencia_tecnica.Services
             return await _context.Pecas.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<Peca> CreateAsync(Peca peca)
+        public async Task<Peca> CreateAsync(PecaDto dto)
         {
+            var peca = new Peca
+            {
+                NomePeca = dto.NomePeca,
+                Fabricante = dto.Fabricante,
+                LocalDeFabricacao = dto.LocalDeFabricacao,
+                PesoKg = dto.PesoKg,
+                Quantidade = dto.Quantidade,
+                NumeroDeSerie = dto.NumeroDeSerie,
+                CodigoDeProducao = dto.CodigoDeProducao,
+                Preco = dto.Preco,
+                Observacao = dto.Observacao
+            };
+
             _context.Pecas.Add(peca);
             await _context.SaveChangesAsync();
             return peca;
         }
 
-        public async Task<Peca?> UpdateAsync(int id, Peca peca)
+        public async Task<Peca?> UpdateAsync(int id, PecaDto dto)
         {
             var existing = await _context.Pecas.FindAsync(id);
             if (existing == null) return null;
 
-            existing.NomePeca = peca.NomePeca;
-            existing.Fabricante = peca.Fabricante;
-            existing.LocalDeFabricacao = peca.LocalDeFabricacao;
-            existing.PesoKg = peca.PesoKg;
-            existing.Quantidade = peca.Quantidade;
-            existing.NumeroDeSerie = peca.NumeroDeSerie;
-            existing.CodigoDeProducao = peca.CodigoDeProducao;
-            existing.Preco = peca.Preco;
-            existing.Observacao = peca.Observacao;
+            existing.NomePeca = dto.NomePeca;
+            existing.Fabricante = dto.Fabricante;
+            existing.LocalDeFabricacao = dto.LocalDeFabricacao;
+            existing.PesoKg = dto.PesoKg;
+            existing.Quantidade = dto.Quantidade;
+            existing.NumeroDeSerie = dto.NumeroDeSerie;
+            existing.CodigoDeProducao = dto.CodigoDeProducao;
+            existing.Preco = dto.Preco;
+            existing.Observacao = dto.Observacao;
 
             _context.Pecas.Update(existing);
             await _context.SaveChangesAsync();
