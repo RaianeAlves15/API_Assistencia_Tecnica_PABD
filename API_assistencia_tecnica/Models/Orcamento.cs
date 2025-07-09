@@ -1,7 +1,10 @@
-﻿namespace API_assistencia_tecnica.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_assistencia_tecnica.Models
 {
     public class Orcamento
     {
+        [Key]
         public int IdOrcamento { get; set; }
 
         // Dados do Cliente

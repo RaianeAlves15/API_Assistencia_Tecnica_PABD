@@ -1,7 +1,10 @@
-﻿namespace API_assistencia_tecnica.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_assistencia_tecnica.Models
 {
     public class Reparo
     {
+        [Key]
         public int IdLancamentoReparo { get; set; }
 
         // Dados do Cliente

@@ -1,7 +1,10 @@
-﻿namespace API_assistencia_tecnica.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_assistencia_tecnica.Models
 {
     public class Peca
     {
+        [Key]
         public int Id { get; set; }
 
         public required string NomePeca { get; set; }

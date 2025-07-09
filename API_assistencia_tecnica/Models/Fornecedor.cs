@@ -1,7 +1,10 @@
-﻿namespace API_assistencia_tecnica.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace API_assistencia_tecnica.Models
 {
     public class Fornecedor
     {
+        [Key]
         public int IdFornecedor { get; set; }
 
         public required string NomeFornecedor { get; set; }
