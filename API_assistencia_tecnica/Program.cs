@@ -13,20 +13,24 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     )
 );
 
+// Injeção de dependências (serviços)
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<EquipamentoService>();
 builder.Services.AddScoped<FornecedorService>();
 builder.Services.AddScoped<OrcamentoService>();
 builder.Services.AddScoped<PecaService>();
 builder.Services.AddScoped<ReparoService>();
+builder.Services.AddScoped<OrcamentoPecaService>(); // ? Corrigido, sem duplicata
+builder.Services.AddScoped<ReparoEquipamentoService>();
+builder.Services.AddScoped<FornecedorPecasService>();
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program)); // REGISTRA O AUTOMAPPER
 
 var app = builder.Build();
-
 
 // Configure o pipeline HTTP
 if (app.Environment.IsDevelopment())

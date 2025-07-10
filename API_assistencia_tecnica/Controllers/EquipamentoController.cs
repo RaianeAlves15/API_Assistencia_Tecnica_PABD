@@ -36,8 +36,9 @@ namespace API_assistencia_tecnica.Controllers
         public async Task<IActionResult> Create([FromBody] EquipamentoDto dto)
         {
             var novo = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = novo.IdEquipamento }, novo);
+            return CreatedAtAction(nameof(GetById), new { id = novo.Id }, novo);
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] EquipamentoDto dto)

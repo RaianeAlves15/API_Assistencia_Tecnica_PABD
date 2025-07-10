@@ -2,79 +2,59 @@
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Dtos;
 using API_assistencia_tecnica.DataContexts;
+using AutoMapper;
 
 namespace API_assistencia_tecnica.Services
 {
     public class EquipamentoService
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public EquipamentoService(AppDbContext context)
+        public EquipamentoService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<Equipamento>> GetAllAsync()
+        public async Task<List<EquipamentoDto>> GetAllAsync()
         {
-            return await _context.Equipamentos.ToListAsync();
+            var equipamentos = await _context.Equipamentos.ToListAsync();
+            return _mapper.Map<List<EquipamentoDto>>(equipamentos);
         }
 
-        public async Task<Equipamento?> GetByIdAsync(int id)
+        public async Task<EquipamentoDto?> GetByIdAsync(int id)
         {
-            return await _context.Equipamentos.FirstOrDefaultAsync(e => e.IdEquipamento == id);
+            var equipamento = await _context.Equipamentos.FindAsync(id);
+            return equipamento == null ? null : _mapper.Map<EquipamentoDto>(equipamento);
         }
 
-        public async Task<Equipamento> CreateAsync(EquipamentoDto dto)
+        public async Task<EquipamentoDto> CreateAsync(EquipamentoDto dto)
         {
-            var equipamento = new Equipamento
-            {
-                NomeEquipamento = dto.NomeEquipamento,
-                Fabricante = dto.Fabricante,
-                Modelo = dto.Modelo,
-                NumeroDeSerie = dto.NumeroDeSerie,
-                CodigoDeFabricacao = dto.CodigoDeFabricacao,
-                AnoDeFabricacao = dto.AnoDeFabricacao,
-                Voltagem = dto.Voltagem,
-                Amperagem = dto.Amperagem
-            };
-
+            var equipamento = _mapper.Map<Equipamento>(dto);
             _context.Equipamentos.Add(equipamento);
             await _context.SaveChangesAsync();
-            return equipamento;
+            return _mapper.Map<EquipamentoDto>(equipamento);
         }
 
-        public async Task<Equipamento?> UpdateAsync(int id, EquipamentoDto dto)
+        public async Task<EquipamentoDto?> UpdateAsync(int id, EquipamentoDto dto)
         {
-            var existing = await _context.Equipamentos.FindAsync(id);
-            if (existing == null) return null;
+            var equipamento = await _context.Equipamentos.FindAsync(id);
+            if (equipamento == null) return null;
 
-            existing.NomeEquipamento = dto.NomeEquipamento;
-            existing.Fabricante = dto.Fabricante;
-            existing.Modelo = dto.Modelo;
-            existing.NumeroDeSerie = dto.NumeroDeSerie;
-            existing.CodigoDeFabricacao = dto.CodigoDeFabricacao;
-            existing.AnoDeFabricacao = dto.AnoDeFabricacao;
-            existing.Voltagem = dto.Voltagem;
-            existing.Amperagem = dto.Amperagem;
-
-            _context.Equipamentos.Update(existing);
+            _mapper.Map(dto, equipamento);
             await _context.SaveChangesAsync();
-            return existing;
+            return _mapper.Map<EquipamentoDto>(equipamento);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var item = await _context.Equipamentos.FindAsync(id);
-            if (item == null) return false;
+            var equipamento = await _context.Equipamentos.FindAsync(id);
+            if (equipamento == null) return false;
 
-            _context.Equipamentos.Remove(item);
+            _context.Equipamentos.Remove(equipamento);
             await _context.SaveChangesAsync();
             return true;
-        }
-
-        public async Task<bool> ExistsAsync(int id)
-        {
-            return await _context.Equipamentos.AnyAsync(e => e.IdEquipamento == id);
         }
     }
 }

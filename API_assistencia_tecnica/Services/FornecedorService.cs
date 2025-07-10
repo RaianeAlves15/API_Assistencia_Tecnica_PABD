@@ -2,85 +2,57 @@
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Dtos;
 using API_assistencia_tecnica.DataContexts;
-
+using AutoMapper;
 
 namespace API_assistencia_tecnica.Services
 {
     public class FornecedorService
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public FornecedorService(AppDbContext context)
+        public FornecedorService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<Fornecedor>> GetAllAsync()
+        public async Task<List<FornecedorDto>> GetAllAsync()
         {
-            return await _context.Fornecedores.ToListAsync();
+            var fornecedores = await _context.Fornecedores.ToListAsync();
+            return _mapper.Map<List<FornecedorDto>>(fornecedores);
         }
 
-        public async Task<Fornecedor?> GetByIdAsync(int id)
+        public async Task<FornecedorDto?> GetByIdAsync(int id)
         {
-            return await _context.Fornecedores.FirstOrDefaultAsync(f => f.IdFornecedor == id);
+            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            return fornecedor == null ? null : _mapper.Map<FornecedorDto>(fornecedor);
         }
 
-        public async Task<Fornecedor> CreateAsync(FornecedorDto dto)
+        public async Task<FornecedorDto> CreateAsync(FornecedorDto dto)
         {
-            var fornecedor = new Fornecedor
-            {
-                NomeFornecedor = dto.NomeFornecedor,
-                CnpjCpf = dto.CnpjCpf,
-                InscricaoEstadual = dto.InscricaoEstadual,
-                Email = dto.Email,
-                Telefone = dto.Telefone,
-                TelefoneCelular = dto.TelefoneCelular,
-                NumeroDoImovel = dto.NumeroDoImovel,
-                Cep = dto.Cep,
-                Bairro = dto.Bairro,
-                Cidade = dto.Cidade,
-                Estado = dto.Estado,
-                Pais = dto.Pais,
-                Site = dto.Site,
-                Representante = dto.Representante
-            };
-
+            var fornecedor = _mapper.Map<Fornecedor>(dto);
             _context.Fornecedores.Add(fornecedor);
             await _context.SaveChangesAsync();
-            return fornecedor;
+            return _mapper.Map<FornecedorDto>(fornecedor);
         }
 
-        public async Task<Fornecedor?> UpdateAsync(int id, FornecedorDto dto)
+        public async Task<FornecedorDto?> UpdateAsync(int id, FornecedorDto dto)
         {
-            var existing = await _context.Fornecedores.FindAsync(id);
-            if (existing == null) return null;
+            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            if (fornecedor == null) return null;
 
-            existing.NomeFornecedor = dto.NomeFornecedor;
-            existing.CnpjCpf = dto.CnpjCpf;
-            existing.InscricaoEstadual = dto.InscricaoEstadual;
-            existing.Email = dto.Email;
-            existing.Telefone = dto.Telefone;
-            existing.TelefoneCelular = dto.TelefoneCelular;
-            existing.NumeroDoImovel = dto.NumeroDoImovel;
-            existing.Cep = dto.Cep;
-            existing.Bairro = dto.Bairro;
-            existing.Cidade = dto.Cidade;
-            existing.Estado = dto.Estado;
-            existing.Pais = dto.Pais;
-            existing.Site = dto.Site;
-            existing.Representante = dto.Representante;
-
-            _context.Fornecedores.Update(existing);
+            _mapper.Map(dto, fornecedor);
             await _context.SaveChangesAsync();
-            return existing;
+            return _mapper.Map<FornecedorDto>(fornecedor);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var item = await _context.Fornecedores.FindAsync(id);
-            if (item == null) return false;
+            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            if (fornecedor == null) return false;
 
-            _context.Fornecedores.Remove(item);
+            _context.Fornecedores.Remove(fornecedor);
             await _context.SaveChangesAsync();
             return true;
         }

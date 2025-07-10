@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using API_assistencia_tecnica.Models;
-using API_assistencia_tecnica.Services;
 using API_assistencia_tecnica.Dtos;
+using API_assistencia_tecnica.Services;
 
 namespace API_assistencia_tecnica.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ReparoController : ControllerBase
     {
         private readonly ReparoService _service;
@@ -17,35 +16,38 @@ namespace API_assistencia_tecnica.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<List<ReparoDto>>> Get()
         {
             var reparos = await _service.GetAllAsync();
             return Ok(reparos);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<ReparoDto>> GetById(int id)
         {
             var reparo = await _service.GetByIdAsync(id);
-            if (reparo == null)
-                return NotFound("Reparo não encontrado.");
-            return Ok(reparo);
+            return reparo == null ? NotFound() : Ok(reparo);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] ReparoDto dto)
+        public async Task<ActionResult<ReparoDto>> Post([FromBody] ReparoDto dto)
         {
-            var novo = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = novo.IdLancamentoReparo }, novo);
+            var created = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ReparoDto>> Put(int id, [FromBody] ReparoDto dto)
+        {
+            var updated = await _service.UpdateAsync(id, dto);
+            return updated == null ? NotFound() : Ok(updated);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var sucesso = await _service.DeleteAsync(id);
-            if (!sucesso)
-                return NotFound("Reparo não encontrado.");
-            return NoContent();
+            var deleted = await _service.DeleteAsync(id);
+            return deleted ? NoContent() : NotFound();
         }
     }
 }

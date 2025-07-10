@@ -1,73 +1,60 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Dtos;
-using API_assistencia_tecnica.DataContexts; // 🔧 IMPORTANTE!
+using API_assistencia_tecnica.DataContexts;
+using AutoMapper;
 
 namespace API_assistencia_tecnica.Services
 {
     public class ReparoService
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ReparoService(AppDbContext context)
+        public ReparoService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<Reparo>> GetAllAsync()
+        public async Task<List<ReparoDto>> GetAllAsync()
         {
-            return await _context.Reparos.ToListAsync();
+            var reparos = await _context.Reparos.ToListAsync();
+            return _mapper.Map<List<ReparoDto>>(reparos);
         }
 
-        public async Task<Reparo?> GetByIdAsync(int id)
+        public async Task<ReparoDto?> GetByIdAsync(int id)
         {
-            return await _context.Reparos.FirstOrDefaultAsync(r => r.IdLancamentoReparo == id);
+            var reparo = await _context.Reparos.FindAsync(id);
+            return reparo == null ? null : _mapper.Map<ReparoDto>(reparo);
         }
 
-        public async Task<Reparo> CreateAsync(ReparoDto dto)
+        public async Task<ReparoDto> CreateAsync(ReparoDto dto)
         {
-            var reparo = new Reparo
-            {
-                NomeCliente = dto.NomeCliente,
-                Cpf = dto.Cpf,
-                Rg = dto.Rg,
-                Telefone = dto.Telefone,
-                Rua = dto.Rua,
-                Bairro = dto.Bairro,
-                Cidade = dto.Cidade,
-                Cep = dto.Cep,
-                NomeEquipamento = dto.NomeEquipamento,
-                Modelo = dto.Modelo,
-                Fabricante = dto.Fabricante,
-                AnoFabricacao = dto.AnoFabricacao,
-                Voltagem = dto.Voltagem,
-                Amperagem = dto.Amperagem,
-                Pecas = dto.Pecas,
-                FormaDePagamento = dto.FormaDePagamento,
-                PrazoDeEntrega = dto.PrazoDeEntrega,
-                Observacao = dto.Observacao,
-                ValorSemDesconto = dto.ValorSemDesconto,
-                ValorComDesconto = dto.ValorComDesconto
-            };
-
+            var reparo = _mapper.Map<Reparo>(dto);
             _context.Reparos.Add(reparo);
             await _context.SaveChangesAsync();
-            return reparo;
+            return _mapper.Map<ReparoDto>(reparo);
+        }
+
+        public async Task<ReparoDto?> UpdateAsync(int id, ReparoDto dto)
+        {
+            var reparo = await _context.Reparos.FindAsync(id);
+            if (reparo == null) return null;
+
+            _mapper.Map(dto, reparo);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<ReparoDto>(reparo);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var item = await _context.Reparos.FindAsync(id);
-            if (item == null) return false;
+            var reparo = await _context.Reparos.FindAsync(id);
+            if (reparo == null) return false;
 
-            _context.Reparos.Remove(item);
+            _context.Reparos.Remove(reparo);
             await _context.SaveChangesAsync();
             return true;
-        }
-
-        public async Task<bool> ExistsAsync(int id)
-        {
-            return await _context.Reparos.AnyAsync(r => r.IdLancamentoReparo == id);
         }
     }
 }

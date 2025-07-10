@@ -1,39 +1,49 @@
+using AutoMapper;
 using API_assistencia_tecnica.Dtos;
 using API_assistencia_tecnica.Models;
-//using AutoMapper;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API_assistencia_tecnica.DataContexts
 {
-   /* public class MapperProfile : Profile
+    public class MapperProfile : Profile
     {
-     //   public MapperProfile()
+        public MapperProfile()
         {
             // Cliente
-          //  CreateMap<ClienteDto, Cliente>();
-            //CreateMap<Cliente, ClienteDto>();
+            CreateMap<ClienteDto, Cliente>();
+            CreateMap<Cliente, ClienteDto>();
 
             // Equipamento
-            //CreateMap<EquipamentoDto, Equipamento>();
-           // CreateMap<Equipamento, EquipamentoDto>();
+            CreateMap<EquipamentoDto, Equipamento>();
+            CreateMap<Equipamento, EquipamentoDto>();
 
             // Fornecedor
-           // CreateMap<FornecedorDto, Fornecedor>();
-            //CreateMap<Fornecedor, FornecedorDto>();
+            CreateMap<FornecedorDto, Fornecedor>();
+            CreateMap<Fornecedor, FornecedorDto>();
 
             // Peça
-          //  CreateMap<PecaDto, Peca>();
-           // CreateMap<Peca, PecaDto>();
+            CreateMap<PecaDto, Peca>();
+            CreateMap<Peca, PecaDto>();
 
             // Orçamento
-           // CreateMap<OrcamentoDto, Orcamento>();
-            //CreateMap<Orcamento, OrcamentoDto>();
+            CreateMap<OrcamentoDto, Orcamento>();
+            CreateMap<Orcamento, OrcamentoDto>();
 
             // Reparo
-           // CreateMap<ReparoDto, Reparo>();
-           // CreateMap<Reparo, ReparoDto>();
+            CreateMap<ReparoDto, Reparo>();
+            CreateMap<Reparo, ReparoDto>();
+
+            // Relacionamentos N:N
+            CreateMap<OrcamentoPecaDto, OrcamentoPeca>();
+            CreateMap<OrcamentoPeca, OrcamentoPecaDto>();
+
+            CreateMap<ReparoEquipamentoDto, ReparoEquipamento>();
+            CreateMap<ReparoEquipamento, ReparoEquipamentoDto>();
+
+            CreateMap<FornecedorPecaDto, FornecedorPeca>();
+            CreateMap<FornecedorPeca, FornecedorPecaDto>();
         }
-    }*/
+    }
 }
 
 

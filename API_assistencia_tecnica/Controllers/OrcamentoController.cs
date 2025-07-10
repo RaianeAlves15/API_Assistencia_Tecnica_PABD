@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using API_assistencia_tecnica.Models;
-using API_assistencia_tecnica.Services;
 using API_assistencia_tecnica.Dtos;
+using API_assistencia_tecnica.Services;
 
 namespace API_assistencia_tecnica.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class OrcamentoController : ControllerBase
     {
         private readonly OrcamentoService _service;
@@ -17,35 +16,38 @@ namespace API_assistencia_tecnica.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<List<OrcamentoDto>>> Get()
         {
             var orcamentos = await _service.GetAllAsync();
             return Ok(orcamentos);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<OrcamentoDto>> GetById(int id)
         {
             var orcamento = await _service.GetByIdAsync(id);
-            if (orcamento == null)
-                return NotFound("Orçamento não encontrado.");
-            return Ok(orcamento);
+            return orcamento == null ? NotFound() : Ok(orcamento);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] OrcamentoDto dto)
+        public async Task<ActionResult<OrcamentoDto>> Post([FromBody] OrcamentoDto dto)
         {
-            var novo = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = novo.IdOrcamento }, novo);
+            var created = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<OrcamentoDto>> Put(int id, [FromBody] OrcamentoDto dto)
+        {
+            var updated = await _service.UpdateAsync(id, dto);
+            return updated == null ? NotFound() : Ok(updated);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var sucesso = await _service.DeleteAsync(id);
-            if (!sucesso)
-                return NotFound("Orçamento não encontrado.");
-            return NoContent();
+            var deleted = await _service.DeleteAsync(id);
+            return deleted ? NoContent() : NotFound();
         }
     }
 }

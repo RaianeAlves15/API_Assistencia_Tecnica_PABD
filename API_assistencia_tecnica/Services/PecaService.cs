@@ -2,81 +2,59 @@
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Dtos;
 using API_assistencia_tecnica.DataContexts;
+using AutoMapper;
 
 namespace API_assistencia_tecnica.Services
 {
     public class PecaService
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public PecaService(AppDbContext context)
+        public PecaService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<Peca>> GetAllAsync()
+        public async Task<List<PecaDto>> GetAllAsync()
         {
-            return await _context.Pecas.ToListAsync();
+            var pecas = await _context.Pecas.ToListAsync();
+            return _mapper.Map<List<PecaDto>>(pecas);
         }
 
-        public async Task<Peca?> GetByIdAsync(int id)
+        public async Task<PecaDto?> GetByIdAsync(int id)
         {
-            return await _context.Pecas.FirstOrDefaultAsync(p => p.Id == id);
+            var peca = await _context.Pecas.FindAsync(id);
+            return peca == null ? null : _mapper.Map<PecaDto>(peca);
         }
 
-        public async Task<Peca> CreateAsync(PecaDto dto)
+        public async Task<PecaDto> CreateAsync(PecaDto dto)
         {
-            var peca = new Peca
-            {
-                NomePeca = dto.NomePeca,
-                Fabricante = dto.Fabricante,
-                LocalDeFabricacao = dto.LocalDeFabricacao,
-                PesoKg = dto.PesoKg,
-                Quantidade = dto.Quantidade,
-                NumeroDeSerie = dto.NumeroDeSerie,
-                CodigoDeProducao = dto.CodigoDeProducao,
-                Preco = dto.Preco,
-                Observacao = dto.Observacao
-            };
-
+            var peca = _mapper.Map<Peca>(dto);
             _context.Pecas.Add(peca);
             await _context.SaveChangesAsync();
-            return peca;
+            return _mapper.Map<PecaDto>(peca);
         }
 
-        public async Task<Peca?> UpdateAsync(int id, PecaDto dto)
+        public async Task<PecaDto?> UpdateAsync(int id, PecaDto dto)
         {
-            var existing = await _context.Pecas.FindAsync(id);
-            if (existing == null) return null;
+            var peca = await _context.Pecas.FindAsync(id);
+            if (peca == null) return null;
 
-            existing.NomePeca = dto.NomePeca;
-            existing.Fabricante = dto.Fabricante;
-            existing.LocalDeFabricacao = dto.LocalDeFabricacao;
-            existing.PesoKg = dto.PesoKg;
-            existing.Quantidade = dto.Quantidade;
-            existing.NumeroDeSerie = dto.NumeroDeSerie;
-            existing.CodigoDeProducao = dto.CodigoDeProducao;
-            existing.Preco = dto.Preco;
-            existing.Observacao = dto.Observacao;
-
-            _context.Pecas.Update(existing);
+            _mapper.Map(dto, peca);
             await _context.SaveChangesAsync();
-            return existing;
+            return _mapper.Map<PecaDto>(peca);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var item = await _context.Pecas.FindAsync(id);
-            if (item == null) return false;
+            var peca = await _context.Pecas.FindAsync(id);
+            if (peca == null) return false;
 
-            _context.Pecas.Remove(item);
+            _context.Pecas.Remove(peca);
             await _context.SaveChangesAsync();
             return true;
-        }
-
-        public async Task<bool> ExistsAsync(int id)
-        {
-            return await _context.Pecas.AnyAsync(p => p.Id == id);
         }
     }
 }

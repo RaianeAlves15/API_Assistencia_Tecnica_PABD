@@ -2,79 +2,59 @@
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Dtos;
 using API_assistencia_tecnica.DataContexts;
+using AutoMapper;
 
 namespace API_assistencia_tecnica.Services
 {
     public class OrcamentoService
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public OrcamentoService(AppDbContext context)
+        public OrcamentoService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<Orcamento>> GetAllAsync()
+        public async Task<List<OrcamentoDto>> GetAllAsync()
         {
-            return await _context.Orcamentos.ToListAsync();
+            var orcamentos = await _context.Orcamentos.ToListAsync();
+            return _mapper.Map<List<OrcamentoDto>>(orcamentos);
         }
 
-        public async Task<Orcamento?> GetByIdAsync(int id)
+        public async Task<OrcamentoDto?> GetByIdAsync(int id)
         {
-            return await _context.Orcamentos.FirstOrDefaultAsync(o => o.IdOrcamento == id);
+            var orcamento = await _context.Orcamentos.FindAsync(id);
+            return orcamento == null ? null : _mapper.Map<OrcamentoDto>(orcamento);
         }
 
-        public async Task<Orcamento> CreateAsync(OrcamentoDto dto)
+        public async Task<OrcamentoDto> CreateAsync(OrcamentoDto dto)
         {
-            var orcamento = new Orcamento
-            {
-                // Cliente
-                NomeCliente = dto.NomeCliente,
-                Cpf = dto.Cpf,
-                Rg = dto.Rg,
-                Telefone = dto.Telefone,
-                Rua = dto.Rua,
-                Bairro = dto.Bairro,
-                Cidade = dto.Cidade,
-                Cep = dto.Cep,
-
-                // Equipamento
-                NomeEquipamento = dto.NomeEquipamento,
-                Modelo = dto.Modelo,
-                Fabricante = dto.Fabricante,
-                AnoFabricacao = dto.AnoFabricacao,
-                Voltagem = dto.Voltagem,
-                Amperagem = dto.Amperagem,
-
-                // Reparo
-                Pecas = dto.Pecas,
-                FormaDePagamento = dto.FormaDePagamento,
-                PrazoDeEntrega = dto.PrazoDeEntrega,
-                Observacao = dto.Observacao,
-
-                // Valores
-                ValorSemDesconto = dto.ValorSemDesconto,
-                ValorComDesconto = dto.ValorComDesconto
-            };
-
+            var orcamento = _mapper.Map<Orcamento>(dto);
             _context.Orcamentos.Add(orcamento);
             await _context.SaveChangesAsync();
-            return orcamento;
+            return _mapper.Map<OrcamentoDto>(orcamento);
+        }
+
+        public async Task<OrcamentoDto?> UpdateAsync(int id, OrcamentoDto dto)
+        {
+            var orcamento = await _context.Orcamentos.FindAsync(id);
+            if (orcamento == null) return null;
+
+            _mapper.Map(dto, orcamento);
+            await _context.SaveChangesAsync();
+            return _mapper.Map<OrcamentoDto>(orcamento);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var item = await _context.Orcamentos.FindAsync(id);
-            if (item == null) return false;
+            var orcamento = await _context.Orcamentos.FindAsync(id);
+            if (orcamento == null) return false;
 
-            _context.Orcamentos.Remove(item);
+            _context.Orcamentos.Remove(orcamento);
             await _context.SaveChangesAsync();
             return true;
-        }
-
-        public async Task<bool> ExistsAsync(int id)
-        {
-            return await _context.Orcamentos.AnyAsync(o => o.IdOrcamento == id);
         }
     }
 }

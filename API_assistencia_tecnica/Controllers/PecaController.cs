@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using API_assistencia_tecnica.Models;
-using API_assistencia_tecnica.Services;
 using API_assistencia_tecnica.Dtos;
+using API_assistencia_tecnica.Services;
 
 namespace API_assistencia_tecnica.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PecaController : ControllerBase
     {
         private readonly PecaService _service;
@@ -17,44 +16,38 @@ namespace API_assistencia_tecnica.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<List<PecaDto>>> Get()
         {
             var pecas = await _service.GetAllAsync();
             return Ok(pecas);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<PecaDto>> GetById(int id)
         {
             var peca = await _service.GetByIdAsync(id);
-            if (peca == null)
-                return NotFound("Peça não encontrada.");
-            return Ok(peca);
+            return peca == null ? NotFound() : Ok(peca);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] PecaDto dto)
+        public async Task<ActionResult<PecaDto>> Post([FromBody] PecaDto dto)
         {
-            var nova = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = nova.Id }, nova);
+            var created = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] PecaDto dto)
+        public async Task<ActionResult<PecaDto>> Put(int id, [FromBody] PecaDto dto)
         {
-            var atualizada = await _service.UpdateAsync(id, dto);
-            if (atualizada == null)
-                return NotFound("Peça não encontrada.");
-            return Ok(atualizada);
+            var updated = await _service.UpdateAsync(id, dto);
+            return updated == null ? NotFound() : Ok(updated);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var sucesso = await _service.DeleteAsync(id);
-            if (!sucesso)
-                return NotFound("Peça não encontrada.");
-            return NoContent();
+            var deleted = await _service.DeleteAsync(id);
+            return deleted ? NoContent() : NotFound();
         }
     }
 }

@@ -2,65 +2,49 @@
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Dtos;
 using API_assistencia_tecnica.DataContexts;
-
+using AutoMapper;
 
 namespace API_assistencia_tecnica.Services
 {
     public class ClienteService
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ClienteService(AppDbContext context)
+        public ClienteService(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<List<Cliente>> GetAllAsync()
+        public async Task<List<ClienteDto>> GetAllAsync()
         {
-            return await _context.Clientes.ToListAsync();
+            var clientes = await _context.Clientes.ToListAsync();
+            return _mapper.Map<List<ClienteDto>>(clientes);
         }
 
-        public async Task<Cliente?> GetByIdAsync(int id)
+        public async Task<ClienteDto?> GetByIdAsync(int id)
         {
-            return await _context.Clientes.FirstOrDefaultAsync(c => c.Id == id);
+            var cliente = await _context.Clientes.FindAsync(id);
+            return cliente == null ? null : _mapper.Map<ClienteDto>(cliente);
         }
 
-        public async Task<Cliente> CreateAsync(ClienteDto dto)
+        public async Task<ClienteDto> CreateAsync(ClienteDto dto)
         {
-            var cliente = new Cliente
-            {
-                NomeCliente = dto.NomeCliente,
-                CpfCliente = dto.CpfCliente,
-                RgCliente = dto.RgCliente,
-                TelefoneCliente = dto.TelefoneCliente,
-                EmailCliente = dto.EmailCliente,
-                RuaCliente = dto.RuaCliente,
-                BairroCliente = dto.BairroCliente,
-                CidadeCliente = dto.CidadeCliente
-            };
-
+            var cliente = _mapper.Map<Cliente>(dto);
             _context.Clientes.Add(cliente);
             await _context.SaveChangesAsync();
-            return cliente;
+            return _mapper.Map<ClienteDto>(cliente);
         }
 
-        public async Task<Cliente?> UpdateAsync(int id, ClienteDto dto)
+        public async Task<ClienteDto?> UpdateAsync(int id, ClienteDto dto)
         {
-            var existing = await _context.Clientes.FindAsync(id);
-            if (existing == null) return null;
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null) return null;
 
-            existing.NomeCliente = dto.NomeCliente;
-            existing.CpfCliente = dto.CpfCliente;
-            existing.RgCliente = dto.RgCliente;
-            existing.TelefoneCliente = dto.TelefoneCliente;
-            existing.EmailCliente = dto.EmailCliente;
-            existing.RuaCliente = dto.RuaCliente;
-            existing.BairroCliente = dto.BairroCliente;
-            existing.CidadeCliente = dto.CidadeCliente;
-
-            _context.Clientes.Update(existing);
+            _mapper.Map(dto, cliente);
             await _context.SaveChangesAsync();
-            return existing;
+            return _mapper.Map<ClienteDto>(cliente);
         }
 
         public async Task<bool> DeleteAsync(int id)
