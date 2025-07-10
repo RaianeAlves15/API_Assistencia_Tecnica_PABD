@@ -34,5 +34,37 @@ namespace API_assistencia_tecnica.Services
             await _context.SaveChangesAsync();
             return _mapper.Map<OrcamentoPecaDto>(entity);
         }
+
+        public async Task<OrcamentoPecaDto?> GetByIdAsync(int id)
+        {
+            var entity = await _context.OrcamentoPecas
+                .Include(op => op.Orcamento)
+                .Include(op => op.Peca)
+                .FirstOrDefaultAsync(op => op.Id == id);
+
+            return entity == null ? null : _mapper.Map<OrcamentoPecaDto>(entity);
+        }
+
+        public async Task<OrcamentoPecaDto?> UpdateAsync(int id, OrcamentoPecaDto dto)
+        {
+            var entity = await _context.OrcamentoPecas.FindAsync(id);
+            if (entity == null) return null;
+
+            _mapper.Map(dto, entity);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<OrcamentoPecaDto>(entity);
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var entity = await _context.OrcamentoPecas.FindAsync(id);
+            if (entity == null) return false;
+
+            _context.OrcamentoPecas.Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }
+

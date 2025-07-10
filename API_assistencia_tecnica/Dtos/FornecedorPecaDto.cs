@@ -2,6 +2,7 @@
 {
     public class FornecedorPecaDto
     {
+        public int Id { get; set; }  // Adicionado
         public int FornecedorId { get; set; }
         public int PecaId { get; set; }
         public decimal PrecoUnitario { get; set; }
