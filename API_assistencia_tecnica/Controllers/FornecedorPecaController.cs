@@ -4,8 +4,8 @@ using API_assistencia_tecnica.Services;
 
 namespace API_assistencia_tecnica.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class FornecedorPecaController : ControllerBase
     {
         private readonly FornecedorPecasService _service;
@@ -16,17 +16,44 @@ namespace API_assistencia_tecnica.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<FornecedorPecaDto>>> Get()
+        public async Task<IActionResult> GetAll()
         {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
+            var lista = await _service.GetAllAsync();
+            return Ok(lista);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var item = await _service.GetByIdAsync(id);
+            if (item == null)
+                return NotFound("Associação Fornecedor-Peça não encontrada.");
+            return Ok(item);
         }
 
         [HttpPost]
-        public async Task<ActionResult<FornecedorPecaDto>> Post([FromBody] FornecedorPecaDto dto)
+        public async Task<IActionResult> Create([FromBody] FornecedorPecaDto dto)
         {
-            var created = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(Get), new { }, created);
+            var novo = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = novo.Id }, novo);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] FornecedorPecaDto dto)
+        {
+            var atualizado = await _service.UpdateAsync(id, dto);
+            if (atualizado == null)
+                return NotFound("Associação Fornecedor-Peça não encontrada.");
+            return Ok(atualizado);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var sucesso = await _service.DeleteAsync(id);
+            if (!sucesso)
+                return NotFound("Associação Fornecedor-Peça não encontrada.");
+            return NoContent();
         }
     }
 }

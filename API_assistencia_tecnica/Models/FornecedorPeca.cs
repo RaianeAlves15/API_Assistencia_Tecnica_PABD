@@ -5,6 +5,9 @@ namespace API_assistencia_tecnica.Models
 {
     public class FornecedorPeca
     {
+        // ID auxiliar para facilitar uso em métodos que requerem identificador simples
+        public int Id { get; set; }
+
         [Key, Column(Order = 0)]
         public int FornecedorId { get; set; }
         public Fornecedor Fornecedor { get; set; }
@@ -17,3 +20,4 @@ namespace API_assistencia_tecnica.Models
         public DateTime DataUltimaCompra { get; set; }
     }
 }
+

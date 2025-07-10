@@ -5,6 +5,9 @@ namespace API_assistencia_tecnica.Models
 {
     public class OrcamentoPeca
     {
+        // ID auxiliar para facilitar uso em métodos que requerem identificador simples
+        public int Id { get; set; }
+
         [Key, Column(Order = 0)]
         public int OrcamentoId { get; set; }
         public Orcamento Orcamento { get; set; }

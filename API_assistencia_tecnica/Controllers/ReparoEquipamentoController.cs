@@ -16,18 +16,44 @@ namespace API_assistencia_tecnica.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ReparoEquipamentoDto>>> Get()
+        public async Task<IActionResult> GetAll()
         {
-            var result = await _service.GetAllAsync();
-            return Ok(result);
+            var lista = await _service.GetAllAsync();
+            return Ok(lista);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var item = await _service.GetByIdAsync(id);
+            if (item == null)
+                return NotFound("Relação reparo-equipamento não encontrada.");
+            return Ok(item);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ReparoEquipamentoDto>> Post([FromBody] ReparoEquipamentoDto dto)
+        public async Task<IActionResult> Create([FromBody] ReparoEquipamentoDto dto)
         {
-            var created = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(Get), new { }, created);
+            var novo = await _service.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id = novo.Id }, novo);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] ReparoEquipamentoDto dto)
+        {
+            var atualizado = await _service.UpdateAsync(id, dto);
+            if (atualizado == null)
+                return NotFound("Relação reparo-equipamento não encontrada.");
+            return Ok(atualizado);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var sucesso = await _service.DeleteAsync(id);
+            if (!sucesso)
+                return NotFound("Relação reparo-equipamento não encontrada.");
+            return NoContent();
         }
     }
 }
-
