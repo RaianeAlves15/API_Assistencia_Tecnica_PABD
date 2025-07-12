@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Services;
 using API_assistencia_tecnica.Dtos;
 
@@ -19,17 +18,17 @@ namespace API_assistencia_tecnica.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var equipamentos = await _service.GetAllAsync();
-            return Ok(equipamentos);
+            var lista = await _service.GetAllAsync();
+            return Ok(lista);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var equipamento = await _service.GetByIdAsync(id);
-            if (equipamento == null)
+            var item = await _service.GetByIdAsync(id);
+            if (item == null)
                 return NotFound("Equipamento não encontrado.");
-            return Ok(equipamento);
+            return Ok(item);
         }
 
         [HttpPost]
@@ -38,7 +37,6 @@ namespace API_assistencia_tecnica.Controllers
             var novo = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = novo.Id }, novo);
         }
-
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] EquipamentoDto dto)

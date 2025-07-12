@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Services;
 using API_assistencia_tecnica.Dtos;
 
@@ -31,13 +30,13 @@ namespace API_assistencia_tecnica.Controllers
                 return NotFound("Fornecedor não encontrado.");
             return Ok(fornecedor);
         }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] FornecedorDto dto)
         {
             var novo = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = novo.Id }, novo);
+            return CreatedAtAction(nameof(GetById), new { id = novo.IdFornecedor }, novo);
         }
-
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] FornecedorDto dto)

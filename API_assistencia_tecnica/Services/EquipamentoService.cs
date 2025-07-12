@@ -19,40 +19,40 @@ namespace API_assistencia_tecnica.Services
 
         public async Task<List<EquipamentoDto>> GetAllAsync()
         {
-            var equipamentos = await _context.Equipamentos.ToListAsync();
-            return _mapper.Map<List<EquipamentoDto>>(equipamentos);
+            var lista = await _context.Equipamentos.ToListAsync();
+            return _mapper.Map<List<EquipamentoDto>>(lista);
         }
 
         public async Task<EquipamentoDto?> GetByIdAsync(int id)
         {
-            var equipamento = await _context.Equipamentos.FindAsync(id);
-            return equipamento == null ? null : _mapper.Map<EquipamentoDto>(equipamento);
+            var item = await _context.Equipamentos.FindAsync(id);
+            return item == null ? null : _mapper.Map<EquipamentoDto>(item);
         }
 
         public async Task<EquipamentoDto> CreateAsync(EquipamentoDto dto)
         {
-            var equipamento = _mapper.Map<Equipamento>(dto);
-            _context.Equipamentos.Add(equipamento);
+            var entidade = _mapper.Map<Equipamento>(dto);
+            _context.Equipamentos.Add(entidade);
             await _context.SaveChangesAsync();
-            return _mapper.Map<EquipamentoDto>(equipamento);
+            return _mapper.Map<EquipamentoDto>(entidade);
         }
 
         public async Task<EquipamentoDto?> UpdateAsync(int id, EquipamentoDto dto)
         {
-            var equipamento = await _context.Equipamentos.FindAsync(id);
-            if (equipamento == null) return null;
+            var entidade = await _context.Equipamentos.FindAsync(id);
+            if (entidade == null) return null;
 
-            _mapper.Map(dto, equipamento);
+            _mapper.Map(dto, entidade);
             await _context.SaveChangesAsync();
-            return _mapper.Map<EquipamentoDto>(equipamento);
+            return _mapper.Map<EquipamentoDto>(entidade);
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var equipamento = await _context.Equipamentos.FindAsync(id);
-            if (equipamento == null) return false;
+            var entidade = await _context.Equipamentos.FindAsync(id);
+            if (entidade == null) return false;
 
-            _context.Equipamentos.Remove(equipamento);
+            _context.Equipamentos.Remove(entidade);
             await _context.SaveChangesAsync();
             return true;
         }

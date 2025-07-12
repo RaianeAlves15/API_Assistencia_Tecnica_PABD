@@ -11,6 +11,7 @@ namespace API_assistencia_tecnica.DataContexts
 
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Equipamento> Equipamentos { get; set; }
+
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Orcamento> Orcamentos { get; set; }
         public DbSet<Peca> Pecas { get; set; }
