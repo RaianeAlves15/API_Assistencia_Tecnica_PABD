@@ -32,7 +32,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(
+                "http://localhost:3000",    // Create React App
+                "http://localhost:5173",    // Vite
+                "http://localhost:8080",    // Vue CLI
+                "http://localhost:4200"     // Angular
+            )
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
+app.UseCors();
+
 
 // Pipeline HTTP
 if (app.Environment.IsDevelopment())

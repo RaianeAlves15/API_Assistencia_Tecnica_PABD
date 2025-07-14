@@ -22,35 +22,59 @@ namespace API_assistencia_tecnica.Controllers
             return Ok(lista);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{fornecedorId}/{pecaId}")]
+        public async Task<IActionResult> GetById(int fornecedorId, int pecaId)
         {
-            var item = await _service.GetByIdAsync(id);
+            var item = await _service.GetByIdAsync(fornecedorId, pecaId);
             if (item == null)
                 return NotFound("Associação Fornecedor-Peça não encontrada.");
             return Ok(item);
         }
 
+        [HttpGet("fornecedor/{fornecedorId}")]
+        public async Task<IActionResult> GetPecasByFornecedor(int fornecedorId)
+        {
+            var lista = await _service.GetPecasByFornecedorIdAsync(fornecedorId);
+            return Ok(lista);
+        }
+
+        [HttpGet("peca/{pecaId}")]
+        public async Task<IActionResult> GetFornecedoresByPeca(int pecaId)
+        {
+            var lista = await _service.GetFornecedoresByPecaIdAsync(pecaId);
+            return Ok(lista);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] FornecedorPecaDto dto)
         {
+            // Verificar se já existe a relação
+            var existe = await _service.ExistsAsync(dto.FornecedorId, dto.PecaId);
+            if (existe)
+                return Conflict("Esta associação fornecedor-peça já existe.");
+
             var novo = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = novo.Id }, novo);
+            return CreatedAtAction(nameof(GetById),
+                new { fornecedorId = novo.FornecedorId, pecaId = novo.PecaId }, novo);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] FornecedorPecaDto dto)
+        [HttpPut("{fornecedorId}/{pecaId}")]
+        public async Task<IActionResult> Update(int fornecedorId, int pecaId, [FromBody] FornecedorPecaDto dto)
         {
-            var atualizado = await _service.UpdateAsync(id, dto);
+            // Garantir que os IDs do DTO correspondem aos da rota
+            dto.FornecedorId = fornecedorId;
+            dto.PecaId = pecaId;
+
+            var atualizado = await _service.UpdateAsync(fornecedorId, pecaId, dto);
             if (atualizado == null)
                 return NotFound("Associação Fornecedor-Peça não encontrada.");
             return Ok(atualizado);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{fornecedorId}/{pecaId}")]
+        public async Task<IActionResult> Delete(int fornecedorId, int pecaId)
         {
-            var sucesso = await _service.DeleteAsync(id);
+            var sucesso = await _service.DeleteAsync(fornecedorId, pecaId);
             if (!sucesso)
                 return NotFound("Associação Fornecedor-Peça não encontrada.");
             return NoContent();

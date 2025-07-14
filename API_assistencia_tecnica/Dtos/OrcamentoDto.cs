@@ -4,8 +4,8 @@ namespace API_assistencia_tecnica.Dtos
 {
     public class OrcamentoDto
     {
-        public int Id { get; set; }
 
+        public int Id { get; set; }
         [Required] public string? NomeCliente { get; set; }
         [Required] public string? Cpf { get; set; }
         [Required] public string? Rg { get; set; }

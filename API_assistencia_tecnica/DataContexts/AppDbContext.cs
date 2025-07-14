@@ -11,7 +11,6 @@ namespace API_assistencia_tecnica.DataContexts
 
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Equipamento> Equipamentos { get; set; }
-
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Orcamento> Orcamentos { get; set; }
         public DbSet<Peca> Pecas { get; set; }
@@ -19,7 +18,6 @@ namespace API_assistencia_tecnica.DataContexts
         public DbSet<OrcamentoPeca> OrcamentoPecas { get; set; }
         public DbSet<ReparoEquipamento> ReparoEquipamentos { get; set; }
         public DbSet<FornecedorPeca> FornecedorPecas { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -67,6 +65,5 @@ namespace API_assistencia_tecnica.DataContexts
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

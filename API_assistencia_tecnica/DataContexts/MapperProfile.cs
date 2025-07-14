@@ -1,51 +1,43 @@
-using AutoMapper;
 using API_assistencia_tecnica.Dtos;
 using API_assistencia_tecnica.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using AutoMapper;
 
-namespace API_assistencia_tecnica.DataContexts
+public class MapperProfile : Profile
 {
-    public class MapperProfile : Profile
+    public MapperProfile()
     {
-        public MapperProfile()
-        {
-            // Cliente
-            CreateMap<ClienteDto, Cliente>();
-            CreateMap<Cliente, ClienteDto>();
+        // Cliente
+        CreateMap<ClienteDto, Cliente>();
+        CreateMap<Cliente, ClienteDto>();
 
-            // Equipamento
-            CreateMap<EquipamentoDto, Equipamento>();
-            CreateMap<Equipamento, EquipamentoDto>();
+        // Equipamento
+        CreateMap<EquipamentoDto, Equipamento>();
+        CreateMap<Equipamento, EquipamentoDto>();
 
-            // Fornecedor
-            CreateMap<FornecedorDto, Fornecedor>();
-            CreateMap<Fornecedor, FornecedorDto>();
+        // Fornecedor
+        CreateMap<FornecedorDto, Fornecedor>();
+        CreateMap<Fornecedor, FornecedorDto>();
 
-            // Peça
-            CreateMap<PecaDto, Peca>();
-            CreateMap<Peca, PecaDto>();
+        // Peça
+        CreateMap<PecaDto, Peca>();
+        CreateMap<Peca, PecaDto>();
 
-            // Orçamento
-            CreateMap<OrcamentoDto, Orcamento>();
-            CreateMap<Orcamento, OrcamentoDto>();
+        // Orçamento
+        CreateMap<OrcamentoDto, Orcamento>();
+        CreateMap<Orcamento, OrcamentoDto>();
 
-            // Reparo
-            CreateMap<ReparoDto, Reparo>();
-            CreateMap<Reparo, ReparoDto>();
+        // Reparo
+        CreateMap<ReparoDto, Reparo>();
+        CreateMap<Reparo, ReparoDto>();
 
-            // Relacionamentos N:N
-            CreateMap<OrcamentoPecaDto, OrcamentoPeca>();
-            CreateMap<OrcamentoPeca, OrcamentoPecaDto>();
+        // Relacionamentos N:N - Simplificados
+        CreateMap<OrcamentoPecaDto, OrcamentoPeca>();
+        CreateMap<OrcamentoPeca, OrcamentoPecaDto>();
 
-            CreateMap<ReparoEquipamentoDto, ReparoEquipamento>();
-            CreateMap<ReparoEquipamento, ReparoEquipamentoDto>();
+        CreateMap<ReparoEquipamentoDto, ReparoEquipamento>();
+        CreateMap<ReparoEquipamento, ReparoEquipamentoDto>();
 
-            CreateMap<FornecedorPecaDto, FornecedorPeca>();
-            CreateMap<FornecedorPeca, FornecedorPecaDto>();
-        }
+        CreateMap<FornecedorPecaDto, FornecedorPeca>();
+        CreateMap<FornecedorPeca, FornecedorPecaDto>();
     }
 }
-
-
-
-// adicionar no program builder.Services.AddAutoMapper(typeof(MapperProfile));

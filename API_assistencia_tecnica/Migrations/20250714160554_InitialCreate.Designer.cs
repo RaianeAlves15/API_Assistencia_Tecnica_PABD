@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_assistencia_tecnica.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250709233037_AdicionaAnoDeFabricacao")]
-    partial class AdicionaAnoDeFabricacao
+    [Migration("20250714160554_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,7 @@ namespace API_assistencia_tecnica.Migrations
 
             modelBuilder.Entity("API_assistencia_tecnica.Models.Equipamento", b =>
                 {
-                    b.Property<int>("IdEquipamento")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -102,7 +102,7 @@ namespace API_assistencia_tecnica.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("IdEquipamento");
+                    b.HasKey("Id");
 
                     b.ToTable("Equipamentos");
                 });
@@ -185,6 +185,9 @@ namespace API_assistencia_tecnica.Migrations
 
                     b.Property<DateTime>("DataUltimaCompra")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PrecoUnitario")
                         .HasColumnType("decimal(65,30)");
@@ -292,6 +295,9 @@ namespace API_assistencia_tecnica.Migrations
                     b.Property<int>("PecaId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PrecoUnitario")
                         .HasColumnType("decimal(65,30)");
@@ -446,6 +452,9 @@ namespace API_assistencia_tecnica.Migrations
                     b.Property<int>("EquipamentoId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.HasKey("ReparoId", "EquipamentoId");
 

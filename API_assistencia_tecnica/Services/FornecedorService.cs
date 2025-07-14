@@ -59,7 +59,7 @@ namespace API_assistencia_tecnica.Services
 
         public async Task<bool> ExistsAsync(int id)
         {
-            return await _context.Fornecedores.AnyAsync(f => f.IdFornecedor == id);
+            return await _context.Fornecedores.AnyAsync(f => f.Id == id);
         }
     }
 }

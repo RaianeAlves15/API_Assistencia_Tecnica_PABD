@@ -5,7 +5,7 @@ namespace API_assistencia_tecnica.Models
     public class Reparo
     {
         [Key]
-        public int IdLancamentoReparo { get; set; }
+        public int Id { get; set; }
 
         // Dados do Cliente
         public required string NomeCliente { get; set; }

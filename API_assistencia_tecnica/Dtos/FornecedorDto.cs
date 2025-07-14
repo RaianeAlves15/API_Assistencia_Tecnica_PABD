@@ -4,7 +4,7 @@ namespace API_assistencia_tecnica.Dtos
 {
     public class FornecedorDto
     {
-        public int IdFornecedor { get; set; }
+        public int Id { get; set; }
 
         [Required] public string NomeFornecedor { get; set; }
         [Required] public string CnpjCpf { get; set; }

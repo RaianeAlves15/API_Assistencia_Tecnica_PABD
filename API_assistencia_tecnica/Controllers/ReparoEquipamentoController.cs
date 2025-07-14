@@ -22,10 +22,10 @@ namespace API_assistencia_tecnica.Controllers
             return Ok(lista);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{reparoId}/{equipamentoId}")]
+        public async Task<IActionResult> GetById(int reparoId, int equipamentoId)
         {
-            var item = await _service.GetByIdAsync(id);
+            var item = await _service.GetByIdAsync(reparoId, equipamentoId);
             if (item == null)
                 return NotFound("Relação reparo-equipamento não encontrada.");
             return Ok(item);
@@ -35,22 +35,23 @@ namespace API_assistencia_tecnica.Controllers
         public async Task<IActionResult> Create([FromBody] ReparoEquipamentoDto dto)
         {
             var novo = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = novo.Id }, novo);
+            return CreatedAtAction(nameof(GetById),
+                new { reparoId = novo.ReparoId, equipamentoId = novo.EquipamentoId }, novo);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] ReparoEquipamentoDto dto)
+        [HttpPut("{reparoId}/{equipamentoId}")]
+        public async Task<IActionResult> Update(int reparoId, int equipamentoId, [FromBody] ReparoEquipamentoDto dto)
         {
-            var atualizado = await _service.UpdateAsync(id, dto);
+            var atualizado = await _service.UpdateAsync(reparoId, equipamentoId, dto);
             if (atualizado == null)
                 return NotFound("Relação reparo-equipamento não encontrada.");
             return Ok(atualizado);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{reparoId}/{equipamentoId}")]
+        public async Task<IActionResult> Delete(int reparoId, int equipamentoId)
         {
-            var sucesso = await _service.DeleteAsync(id);
+            var sucesso = await _service.DeleteAsync(reparoId, equipamentoId);
             if (!sucesso)
                 return NotFound("Relação reparo-equipamento não encontrada.");
             return NoContent();

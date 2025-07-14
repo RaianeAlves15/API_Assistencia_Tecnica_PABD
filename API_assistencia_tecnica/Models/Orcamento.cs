@@ -5,7 +5,7 @@ namespace API_assistencia_tecnica.Models
     public class Orcamento
     {
         [Key]
-        public int IdOrcamento { get; set; }
+        public int Id { get; set; } // Alterado de IdOrcamento para Id
 
         // Dados do Cliente
         public required string NomeCliente { get; set; }
@@ -26,7 +26,7 @@ namespace API_assistencia_tecnica.Models
         public required string Amperagem { get; set; }
 
         // Reparo
-        public required string Pecas { get; set; } // Pode ser uma string ou uma lista, depende do uso
+        public required string Pecas { get; set; }
         public required string FormaDePagamento { get; set; }
         public required string PrazoDeEntrega { get; set; }
         public string? Observacao { get; set; }

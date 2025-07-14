@@ -23,8 +23,16 @@ namespace API_assistencia_tecnica.Services
                 .Include(re => re.Reparo)
                 .Include(re => re.Equipamento)
                 .ToListAsync();
-
             return _mapper.Map<List<ReparoEquipamentoDto>>(list);
+        }
+
+        public async Task<ReparoEquipamentoDto?> GetByIdAsync(int reparoId, int equipamentoId)
+        {
+            var entity = await _context.ReparoEquipamentos
+                .Include(re => re.Reparo)
+                .Include(re => re.Equipamento)
+                .FirstOrDefaultAsync(x => x.ReparoId == reparoId && x.EquipamentoId == equipamentoId);
+            return entity == null ? null : _mapper.Map<ReparoEquipamentoDto>(entity);
         }
 
         public async Task<ReparoEquipamentoDto> CreateAsync(ReparoEquipamentoDto dto)
@@ -32,33 +40,40 @@ namespace API_assistencia_tecnica.Services
             var entity = _mapper.Map<ReparoEquipamento>(dto);
             _context.ReparoEquipamentos.Add(entity);
             await _context.SaveChangesAsync();
-            return _mapper.Map<ReparoEquipamentoDto>(entity);
-        }
 
-        public async Task<ReparoEquipamentoDto?> GetByIdAsync(int id)
-        {
-            var entity = await _context.ReparoEquipamentos
+            // Recarrega a entidade com os dados relacionados
+            var entityWithIncludes = await _context.ReparoEquipamentos
                 .Include(re => re.Reparo)
                 .Include(re => re.Equipamento)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.ReparoId == entity.ReparoId && x.EquipamentoId == entity.EquipamentoId);
 
-            return entity == null ? null : _mapper.Map<ReparoEquipamentoDto>(entity);
+            return _mapper.Map<ReparoEquipamentoDto>(entityWithIncludes);
         }
 
-        public async Task<ReparoEquipamentoDto?> UpdateAsync(int id, ReparoEquipamentoDto dto)
+        public async Task<ReparoEquipamentoDto?> UpdateAsync(int reparoId, int equipamentoId, ReparoEquipamentoDto dto)
         {
-            var entity = await _context.ReparoEquipamentos.FindAsync(id);
+            var entity = await _context.ReparoEquipamentos
+                .FirstOrDefaultAsync(x => x.ReparoId == reparoId && x.EquipamentoId == equipamentoId);
+
             if (entity == null) return null;
 
             _mapper.Map(dto, entity);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<ReparoEquipamentoDto>(entity);
+            // Recarrega a entidade com os dados relacionados
+            var entityWithIncludes = await _context.ReparoEquipamentos
+                .Include(re => re.Reparo)
+                .Include(re => re.Equipamento)
+                .FirstOrDefaultAsync(x => x.ReparoId == entity.ReparoId && x.EquipamentoId == entity.EquipamentoId);
+
+            return _mapper.Map<ReparoEquipamentoDto>(entityWithIncludes);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int reparoId, int equipamentoId)
         {
-            var entity = await _context.ReparoEquipamentos.FindAsync(id);
+            var entity = await _context.ReparoEquipamentos
+                .FirstOrDefaultAsync(x => x.ReparoId == reparoId && x.EquipamentoId == equipamentoId);
+
             if (entity == null) return false;
 
             _context.ReparoEquipamentos.Remove(entity);
