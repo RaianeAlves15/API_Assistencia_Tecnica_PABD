@@ -37,17 +37,20 @@ namespace API_assistencia_tecnica.Services
 
         public async Task<ReparoEquipamentoDto> CreateAsync(ReparoEquipamentoDto dto)
         {
+            // ✅ Validar se reparo e equipamento existem
+            var reparoExists = await _context.Reparos.AnyAsync(r => r.Id == dto.ReparoId);
+            var equipamentoExists = await _context.Equipamentos.AnyAsync(e => e.Id == dto.EquipamentoId);
+
+            if (!reparoExists)
+                throw new ArgumentException("Reparo não encontrado.");
+            if (!equipamentoExists)
+                throw new ArgumentException("Equipamento não encontrado.");
+
             var entity = _mapper.Map<ReparoEquipamento>(dto);
             _context.ReparoEquipamentos.Add(entity);
             await _context.SaveChangesAsync();
 
-            // Recarrega a entidade com os dados relacionados
-            var entityWithIncludes = await _context.ReparoEquipamentos
-                .Include(re => re.Reparo)
-                .Include(re => re.Equipamento)
-                .FirstOrDefaultAsync(x => x.ReparoId == entity.ReparoId && x.EquipamentoId == entity.EquipamentoId);
-
-            return _mapper.Map<ReparoEquipamentoDto>(entityWithIncludes);
+            return await GetByIdAsync(entity.ReparoId, entity.EquipamentoId) ?? throw new Exception("Erro ao criar relação.");
         }
 
         public async Task<ReparoEquipamentoDto?> UpdateAsync(int reparoId, int equipamentoId, ReparoEquipamentoDto dto)
@@ -60,15 +63,10 @@ namespace API_assistencia_tecnica.Services
             _mapper.Map(dto, entity);
             await _context.SaveChangesAsync();
 
-            // Recarrega a entidade com os dados relacionados
-            var entityWithIncludes = await _context.ReparoEquipamentos
-                .Include(re => re.Reparo)
-                .Include(re => re.Equipamento)
-                .FirstOrDefaultAsync(x => x.ReparoId == entity.ReparoId && x.EquipamentoId == entity.EquipamentoId);
-
-            return _mapper.Map<ReparoEquipamentoDto>(entityWithIncludes);
+            return await GetByIdAsync(reparoId, equipamentoId);
         }
 
+        // ✅ DELETE sem dependências (é uma tabela de relacionamento)
         public async Task<bool> DeleteAsync(int reparoId, int equipamentoId)
         {
             var entity = await _context.ReparoEquipamentos

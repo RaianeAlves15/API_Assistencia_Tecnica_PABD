@@ -27,7 +27,6 @@ namespace API_assistencia_tecnica.Services
             return _mapper.Map<List<FornecedorPecaDto>>(list);
         }
 
-        // ✅ CORRIGIDO: Método com chaves compostas
         public async Task<FornecedorPecaDto?> GetByIdAsync(int fornecedorId, int pecaId)
         {
             var entity = await _context.FornecedorPecas
@@ -40,20 +39,22 @@ namespace API_assistencia_tecnica.Services
 
         public async Task<FornecedorPecaDto> CreateAsync(FornecedorPecaDto dto)
         {
+            // ✅ Validar se fornecedor e peça existem
+            var fornecedorExists = await _context.Fornecedores.AnyAsync(f => f.Id == dto.FornecedorId);
+            var pecaExists = await _context.Pecas.AnyAsync(p => p.Id == dto.PecaId);
+
+            if (!fornecedorExists)
+                throw new ArgumentException("Fornecedor não encontrado.");
+            if (!pecaExists)
+                throw new ArgumentException("Peça não encontrada.");
+
             var entity = _mapper.Map<FornecedorPeca>(dto);
             _context.FornecedorPecas.Add(entity);
             await _context.SaveChangesAsync();
 
-            // Recarregar com includes
-            var entityWithIncludes = await _context.FornecedorPecas
-                .Include(fp => fp.Fornecedor)
-                .Include(fp => fp.Peca)
-                .FirstOrDefaultAsync(fp => fp.FornecedorId == entity.FornecedorId && fp.PecaId == entity.PecaId);
-
-            return _mapper.Map<FornecedorPecaDto>(entityWithIncludes);
+            return await GetByIdAsync(entity.FornecedorId, entity.PecaId) ?? throw new Exception("Erro ao criar relação.");
         }
 
-        // ✅ CORRIGIDO: Método com chaves compostas
         public async Task<FornecedorPecaDto?> UpdateAsync(int fornecedorId, int pecaId, FornecedorPecaDto dto)
         {
             var entity = await _context.FornecedorPecas
@@ -66,17 +67,10 @@ namespace API_assistencia_tecnica.Services
             entity.DataUltimaCompra = dto.DataUltimaCompra;
 
             await _context.SaveChangesAsync();
-
-            // Recarregar com includes
-            var entityWithIncludes = await _context.FornecedorPecas
-                .Include(fp => fp.Fornecedor)
-                .Include(fp => fp.Peca)
-                .FirstOrDefaultAsync(fp => fp.FornecedorId == entity.FornecedorId && fp.PecaId == entity.PecaId);
-
-            return _mapper.Map<FornecedorPecaDto>(entityWithIncludes);
+            return await GetByIdAsync(fornecedorId, pecaId);
         }
 
-        // ✅ CORRIGIDO: Método com chaves compostas
+        // ✅ DELETE sem dependências (é uma tabela de relacionamento)
         public async Task<bool> DeleteAsync(int fornecedorId, int pecaId)
         {
             var entity = await _context.FornecedorPecas
@@ -89,7 +83,6 @@ namespace API_assistencia_tecnica.Services
             return true;
         }
 
-        // ✅ MÉTODO ADICIONAL: Buscar todas as peças de um fornecedor
         public async Task<List<FornecedorPecaDto>> GetPecasByFornecedorIdAsync(int fornecedorId)
         {
             var list = await _context.FornecedorPecas
@@ -101,7 +94,6 @@ namespace API_assistencia_tecnica.Services
             return _mapper.Map<List<FornecedorPecaDto>>(list);
         }
 
-        // ✅ MÉTODO ADICIONAL: Buscar todos os fornecedores de uma peça
         public async Task<List<FornecedorPecaDto>> GetFornecedoresByPecaIdAsync(int pecaId)
         {
             var list = await _context.FornecedorPecas
@@ -113,7 +105,6 @@ namespace API_assistencia_tecnica.Services
             return _mapper.Map<List<FornecedorPecaDto>>(list);
         }
 
-        // ✅ MÉTODO ADICIONAL: Verificar se existe a relação
         public async Task<bool> ExistsAsync(int fornecedorId, int pecaId)
         {
             return await _context.FornecedorPecas

@@ -27,7 +27,6 @@ namespace API_assistencia_tecnica.Services
             return _mapper.Map<List<OrcamentoPecaDto>>(list);
         }
 
-        // ✅ CORRIGIDO: Método com chaves compostas
         public async Task<OrcamentoPecaDto?> GetByIdAsync(int orcamentoId, int pecaId)
         {
             var entity = await _context.OrcamentoPecas
@@ -40,20 +39,22 @@ namespace API_assistencia_tecnica.Services
 
         public async Task<OrcamentoPecaDto> CreateAsync(OrcamentoPecaDto dto)
         {
+            // ✅ Validar se orçamento e peça existem
+            var orcamentoExists = await _context.Orcamentos.AnyAsync(o => o.Id == dto.OrcamentoId);
+            var pecaExists = await _context.Pecas.AnyAsync(p => p.Id == dto.PecaId);
+
+            if (!orcamentoExists)
+                throw new ArgumentException("Orçamento não encontrado.");
+            if (!pecaExists)
+                throw new ArgumentException("Peça não encontrada.");
+
             var entity = _mapper.Map<OrcamentoPeca>(dto);
             _context.OrcamentoPecas.Add(entity);
             await _context.SaveChangesAsync();
 
-            // Recarregar com includes para retornar dados completos
-            var entityWithIncludes = await _context.OrcamentoPecas
-                .Include(op => op.Orcamento)
-                .Include(op => op.Peca)
-                .FirstOrDefaultAsync(op => op.OrcamentoId == entity.OrcamentoId && op.PecaId == entity.PecaId);
-
-            return _mapper.Map<OrcamentoPecaDto>(entityWithIncludes);
+            return await GetByIdAsync(entity.OrcamentoId, entity.PecaId) ?? throw new Exception("Erro ao criar relação.");
         }
 
-        // ✅ CORRIGIDO: Método com chaves compostas
         public async Task<OrcamentoPecaDto?> UpdateAsync(int orcamentoId, int pecaId, OrcamentoPecaDto dto)
         {
             var entity = await _context.OrcamentoPecas
@@ -66,17 +67,10 @@ namespace API_assistencia_tecnica.Services
             entity.PrecoUnitario = dto.PrecoUnitario;
 
             await _context.SaveChangesAsync();
-
-            // Recarregar com includes
-            var entityWithIncludes = await _context.OrcamentoPecas
-                .Include(op => op.Orcamento)
-                .Include(op => op.Peca)
-                .FirstOrDefaultAsync(op => op.OrcamentoId == entity.OrcamentoId && op.PecaId == entity.PecaId);
-
-            return _mapper.Map<OrcamentoPecaDto>(entityWithIncludes);
+            return await GetByIdAsync(orcamentoId, pecaId);
         }
 
-        // ✅ CORRIGIDO: Método com chaves compostas
+        // ✅ DELETE sem dependências (é uma tabela de relacionamento)
         public async Task<bool> DeleteAsync(int orcamentoId, int pecaId)
         {
             var entity = await _context.OrcamentoPecas
@@ -89,7 +83,6 @@ namespace API_assistencia_tecnica.Services
             return true;
         }
 
-        // ✅ MÉTODO ADICIONAL: Buscar todas as peças de um orçamento
         public async Task<List<OrcamentoPecaDto>> GetPecasByOrcamentoIdAsync(int orcamentoId)
         {
             var list = await _context.OrcamentoPecas
@@ -101,7 +94,6 @@ namespace API_assistencia_tecnica.Services
             return _mapper.Map<List<OrcamentoPecaDto>>(list);
         }
 
-        // ✅ MÉTODO ADICIONAL: Buscar todos os orçamentos que usam uma peça
         public async Task<List<OrcamentoPecaDto>> GetOrcamentosByPecaIdAsync(int pecaId)
         {
             var list = await _context.OrcamentoPecas
@@ -113,7 +105,6 @@ namespace API_assistencia_tecnica.Services
             return _mapper.Map<List<OrcamentoPecaDto>>(list);
         }
 
-        // ✅ MÉTODO ADICIONAL: Verificar se existe a relação
         public async Task<bool> ExistsAsync(int orcamentoId, int pecaId)
         {
             return await _context.OrcamentoPecas

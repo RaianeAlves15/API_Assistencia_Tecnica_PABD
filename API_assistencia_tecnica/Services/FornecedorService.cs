@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿// ========================================
+// FORNECEDORSERVICE.CS - CORRIGIDO
+// ========================================
+
+using Microsoft.EntityFrameworkCore;
 using API_assistencia_tecnica.Models;
 using API_assistencia_tecnica.Dtos;
 using API_assistencia_tecnica.DataContexts;
@@ -47,14 +51,39 @@ namespace API_assistencia_tecnica.Services
             return _mapper.Map<FornecedorDto>(fornecedor);
         }
 
+        // ✅ DELETE MELHORADO - Com verificação de dependências
         public async Task<bool> DeleteAsync(int id)
         {
             var fornecedor = await _context.Fornecedores.FindAsync(id);
             if (fornecedor == null) return false;
 
+            // ✅ Verificar se existem peças relacionadas
+            var temFornecedorPecas = await _context.FornecedorPecas.AnyAsync(fp => fp.FornecedorId == id);
+
+            if (temFornecedorPecas)
+            {
+                throw new InvalidOperationException("Não é possível excluir o fornecedor. Existem peças vinculadas a este fornecedor.");
+            }
+
             _context.Fornecedores.Remove(fornecedor);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        // ✅ NOVO MÉTODO - Verificar se pode deletar
+        public async Task<(bool CanDelete, string Reason)> CanDeleteAsync(int id)
+        {
+            var fornecedor = await _context.Fornecedores.FindAsync(id);
+            if (fornecedor == null) return (false, "Fornecedor não encontrado.");
+
+            var fornecedorPecasCount = await _context.FornecedorPecas.CountAsync(fp => fp.FornecedorId == id);
+
+            if (fornecedorPecasCount > 0)
+            {
+                return (false, $"Fornecedor possui {fornecedorPecasCount} peça(s) vinculada(s).");
+            }
+
+            return (true, "Pode ser excluído.");
         }
 
         public async Task<bool> ExistsAsync(int id)

@@ -106,7 +106,7 @@ namespace API_assistencia_tecnica.Migrations
 
             modelBuilder.Entity("API_assistencia_tecnica.Models.Fornecedor", b =>
                 {
-                    b.Property<int>("IdFornecedor")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -165,7 +165,7 @@ namespace API_assistencia_tecnica.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("IdFornecedor");
+                    b.HasKey("Id");
 
                     b.ToTable("Fornecedores");
                 });
@@ -173,18 +173,13 @@ namespace API_assistencia_tecnica.Migrations
             modelBuilder.Entity("API_assistencia_tecnica.Models.FornecedorPeca", b =>
                 {
                     b.Property<int>("FornecedorId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     b.Property<int>("PecaId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataUltimaCompra")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("PrecoUnitario")
                         .HasColumnType("decimal(65,30)");
@@ -198,73 +193,34 @@ namespace API_assistencia_tecnica.Migrations
 
             modelBuilder.Entity("API_assistencia_tecnica.Models.Orcamento", b =>
                 {
-                    b.Property<int>("IdOrcamento")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Amperagem")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("AnoFabricacao")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Bairro")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<DateTime?>("DataAprovacao")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Cep")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Cidade")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Cpf")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Fabricante")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("EquipamentoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FormaDePagamento")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Modelo")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NomeCliente")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NomeEquipamento")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Pecas")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("PrazoDeEntrega")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Rg")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Rua")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Telefone")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -274,11 +230,11 @@ namespace API_assistencia_tecnica.Migrations
                     b.Property<decimal>("ValorSemDesconto")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<string>("Voltagem")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdOrcamento");
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("EquipamentoId");
 
                     b.ToTable("Orcamentos");
                 });
@@ -286,14 +242,9 @@ namespace API_assistencia_tecnica.Migrations
             modelBuilder.Entity("API_assistencia_tecnica.Models.OrcamentoPeca", b =>
                 {
                     b.Property<int>("OrcamentoId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     b.Property<int>("PecaId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<decimal>("PrecoUnitario")
@@ -355,73 +306,46 @@ namespace API_assistencia_tecnica.Migrations
 
             modelBuilder.Entity("API_assistencia_tecnica.Models.Reparo", b =>
                 {
-                    b.Property<int>("IdLancamentoReparo")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Amperagem")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("AnoFabricacao")
+                    b.Property<int>("ClienteId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Bairro")
-                        .IsRequired()
+                    b.Property<DateTime?>("DataConclusao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DataEntrega")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataInicio")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Diagnostico")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Cep")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Cidade")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Cpf")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Fabricante")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("EquipamentoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FormaDePagamento")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Modelo")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NomeCliente")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NomeEquipamento")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Observacao")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Pecas")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int?>("OrcamentoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PrazoDeEntrega")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Rg")
-                        .IsRequired()
+                    b.Property<string>("SolucaoAplicada")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Rua")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Telefone")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -431,11 +355,13 @@ namespace API_assistencia_tecnica.Migrations
                     b.Property<decimal>("ValorSemDesconto")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<string>("Voltagem")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdLancamentoReparo");
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("EquipamentoId");
+
+                    b.HasIndex("OrcamentoId");
 
                     b.ToTable("Reparos");
                 });
@@ -443,14 +369,9 @@ namespace API_assistencia_tecnica.Migrations
             modelBuilder.Entity("API_assistencia_tecnica.Models.ReparoEquipamento", b =>
                 {
                     b.Property<int>("ReparoId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
+                        .HasColumnType("int");
 
                     b.Property<int>("EquipamentoId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.HasKey("ReparoId", "EquipamentoId");
@@ -458,6 +379,30 @@ namespace API_assistencia_tecnica.Migrations
                     b.HasIndex("EquipamentoId");
 
                     b.ToTable("ReparoEquipamentos");
+                });
+
+            modelBuilder.Entity("API_assistencia_tecnica.Models.ReparoPeca", b =>
+                {
+                    b.Property<int>("ReparoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PecaId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("PecaUtilizada")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<decimal>("PrecoUnitario")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReparoId", "PecaId");
+
+                    b.HasIndex("PecaId");
+
+                    b.ToTable("ReparoPecas");
                 });
 
             modelBuilder.Entity("API_assistencia_tecnica.Models.FornecedorPeca", b =>
@@ -471,12 +416,31 @@ namespace API_assistencia_tecnica.Migrations
                     b.HasOne("API_assistencia_tecnica.Models.Peca", "Peca")
                         .WithMany()
                         .HasForeignKey("PecaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Fornecedor");
 
                     b.Navigation("Peca");
+                });
+
+            modelBuilder.Entity("API_assistencia_tecnica.Models.Orcamento", b =>
+                {
+                    b.HasOne("API_assistencia_tecnica.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("API_assistencia_tecnica.Models.Equipamento", "Equipamento")
+                        .WithMany()
+                        .HasForeignKey("EquipamentoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Equipamento");
                 });
 
             modelBuilder.Entity("API_assistencia_tecnica.Models.OrcamentoPeca", b =>
@@ -490,7 +454,7 @@ namespace API_assistencia_tecnica.Migrations
                     b.HasOne("API_assistencia_tecnica.Models.Peca", "Peca")
                         .WithMany()
                         .HasForeignKey("PecaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Orcamento");
@@ -498,12 +462,38 @@ namespace API_assistencia_tecnica.Migrations
                     b.Navigation("Peca");
                 });
 
+            modelBuilder.Entity("API_assistencia_tecnica.Models.Reparo", b =>
+                {
+                    b.HasOne("API_assistencia_tecnica.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("API_assistencia_tecnica.Models.Equipamento", "Equipamento")
+                        .WithMany()
+                        .HasForeignKey("EquipamentoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("API_assistencia_tecnica.Models.Orcamento", "Orcamento")
+                        .WithMany()
+                        .HasForeignKey("OrcamentoId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Equipamento");
+
+                    b.Navigation("Orcamento");
+                });
+
             modelBuilder.Entity("API_assistencia_tecnica.Models.ReparoEquipamento", b =>
                 {
                     b.HasOne("API_assistencia_tecnica.Models.Equipamento", "Equipamento")
                         .WithMany()
                         .HasForeignKey("EquipamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_assistencia_tecnica.Models.Reparo", "Reparo")
@@ -513,6 +503,25 @@ namespace API_assistencia_tecnica.Migrations
                         .IsRequired();
 
                     b.Navigation("Equipamento");
+
+                    b.Navigation("Reparo");
+                });
+
+            modelBuilder.Entity("API_assistencia_tecnica.Models.ReparoPeca", b =>
+                {
+                    b.HasOne("API_assistencia_tecnica.Models.Peca", "Peca")
+                        .WithMany()
+                        .HasForeignKey("PecaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("API_assistencia_tecnica.Models.Reparo", "Reparo")
+                        .WithMany()
+                        .HasForeignKey("ReparoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Peca");
 
                     b.Navigation("Reparo");
                 });

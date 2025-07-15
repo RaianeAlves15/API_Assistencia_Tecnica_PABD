@@ -8,14 +8,14 @@ Env.Load(); // Carrega o .env automaticamente
 var builder = WebApplication.CreateBuilder(args);
 
 // Recupera a connection string do .env
-var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Configura o DbContext com MySQL
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 32)))
 );
 
-// Serviços
+// Serviços - ATUALIZADOS
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<EquipamentoService>();
 builder.Services.AddScoped<FornecedorService>();
@@ -23,6 +23,7 @@ builder.Services.AddScoped<OrcamentoService>();
 builder.Services.AddScoped<PecaService>();
 builder.Services.AddScoped<ReparoService>();
 builder.Services.AddScoped<OrcamentoPecaService>();
+builder.Services.AddScoped<ReparoPecaService>(); // NOVO
 builder.Services.AddScoped<ReparoEquipamentoService>();
 builder.Services.AddScoped<FornecedorPecasService>();
 
@@ -50,7 +51,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 app.UseCors();
-
 
 // Pipeline HTTP
 if (app.Environment.IsDevelopment())

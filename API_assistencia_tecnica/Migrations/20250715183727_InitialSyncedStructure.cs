@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API_assistencia_tecnica.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialSyncedStructure : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,7 +76,7 @@ namespace API_assistencia_tecnica.Migrations
                 name: "Fornecedores",
                 columns: table => new
                 {
-                    IdFornecedor = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NomeFornecedor = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -109,57 +109,7 @@ namespace API_assistencia_tecnica.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fornecedores", x => x.IdFornecedor);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Orcamentos",
-                columns: table => new
-                {
-                    IdOrcamento = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    NomeCliente = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cpf = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Rg = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Telefone = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Rua = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Bairro = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cidade = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cep = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NomeEquipamento = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Modelo = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fabricante = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AnoFabricacao = table.Column<int>(type: "int", nullable: false),
-                    Voltagem = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Amperagem = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Pecas = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FormaDePagamento = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PrazoDeEntrega = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Observacao = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ValorSemDesconto = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    ValorComDesconto = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orcamentos", x => x.IdOrcamento);
+                    table.PrimaryKey("PK_Fornecedores", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -192,40 +142,13 @@ namespace API_assistencia_tecnica.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Reparos",
+                name: "Orcamentos",
                 columns: table => new
                 {
-                    IdLancamentoReparo = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    NomeCliente = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cpf = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Rg = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Telefone = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Rua = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Bairro = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cidade = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cep = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NomeEquipamento = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Modelo = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Fabricante = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AnoFabricacao = table.Column<int>(type: "int", nullable: false),
-                    Voltagem = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Amperagem = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Pecas = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    EquipamentoId = table.Column<int>(type: "int", nullable: false),
                     FormaDePagamento = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     PrazoDeEntrega = table.Column<string>(type: "longtext", nullable: false)
@@ -233,11 +156,27 @@ namespace API_assistencia_tecnica.Migrations
                     Observacao = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ValorSemDesconto = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
-                    ValorComDesconto = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    ValorComDesconto = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    DataCriacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataAprovacao = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reparos", x => x.IdLancamentoReparo);
+                    table.PrimaryKey("PK_Orcamentos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orcamentos_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orcamentos_Equipamentos_EquipamentoId",
+                        column: x => x.EquipamentoId,
+                        principalTable: "Equipamentos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -247,7 +186,6 @@ namespace API_assistencia_tecnica.Migrations
                 {
                     FornecedorId = table.Column<int>(type: "int", nullable: false),
                     PecaId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     PrecoUnitario = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
                     DataUltimaCompra = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -258,14 +196,14 @@ namespace API_assistencia_tecnica.Migrations
                         name: "FK_FornecedorPecas_Fornecedores_FornecedorId",
                         column: x => x.FornecedorId,
                         principalTable: "Fornecedores",
-                        principalColumn: "IdFornecedor",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FornecedorPecas_Pecas_PecaId",
                         column: x => x.PecaId,
                         principalTable: "Pecas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -275,7 +213,6 @@ namespace API_assistencia_tecnica.Migrations
                 {
                     OrcamentoId = table.Column<int>(type: "int", nullable: false),
                     PecaId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
                     PrecoUnitario = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
                 },
@@ -286,14 +223,65 @@ namespace API_assistencia_tecnica.Migrations
                         name: "FK_OrcamentoPecas_Orcamentos_OrcamentoId",
                         column: x => x.OrcamentoId,
                         principalTable: "Orcamentos",
-                        principalColumn: "IdOrcamento",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrcamentoPecas_Pecas_PecaId",
                         column: x => x.PecaId,
                         principalTable: "Pecas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Reparos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    EquipamentoId = table.Column<int>(type: "int", nullable: false),
+                    OrcamentoId = table.Column<int>(type: "int", nullable: true),
+                    FormaDePagamento = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PrazoDeEntrega = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Observacao = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Diagnostico = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    SolucaoAplicada = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ValorSemDesconto = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    ValorComDesconto = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    DataInicio = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    DataConclusao = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DataEntrega = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reparos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reparos_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reparos_Equipamentos_EquipamentoId",
+                        column: x => x.EquipamentoId,
+                        principalTable: "Equipamentos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reparos_Orcamentos_OrcamentoId",
+                        column: x => x.OrcamentoId,
+                        principalTable: "Orcamentos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -302,8 +290,7 @@ namespace API_assistencia_tecnica.Migrations
                 columns: table => new
                 {
                     ReparoId = table.Column<int>(type: "int", nullable: false),
-                    EquipamentoId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    EquipamentoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -313,12 +300,40 @@ namespace API_assistencia_tecnica.Migrations
                         column: x => x.EquipamentoId,
                         principalTable: "Equipamentos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ReparoEquipamentos_Reparos_ReparoId",
                         column: x => x.ReparoId,
                         principalTable: "Reparos",
-                        principalColumn: "IdLancamentoReparo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ReparoPecas",
+                columns: table => new
+                {
+                    ReparoId = table.Column<int>(type: "int", nullable: false),
+                    PecaId = table.Column<int>(type: "int", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
+                    PrecoUnitario = table.Column<decimal>(type: "decimal(65,30)", nullable: false),
+                    PecaUtilizada = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReparoPecas", x => new { x.ReparoId, x.PecaId });
+                    table.ForeignKey(
+                        name: "FK_ReparoPecas_Pecas_PecaId",
+                        column: x => x.PecaId,
+                        principalTable: "Pecas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReparoPecas_Reparos_ReparoId",
+                        column: x => x.ReparoId,
+                        principalTable: "Reparos",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -334,17 +349,44 @@ namespace API_assistencia_tecnica.Migrations
                 column: "PecaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orcamentos_ClienteId",
+                table: "Orcamentos",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orcamentos_EquipamentoId",
+                table: "Orcamentos",
+                column: "EquipamentoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ReparoEquipamentos_EquipamentoId",
                 table: "ReparoEquipamentos",
                 column: "EquipamentoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReparoPecas_PecaId",
+                table: "ReparoPecas",
+                column: "PecaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reparos_ClienteId",
+                table: "Reparos",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reparos_EquipamentoId",
+                table: "Reparos",
+                column: "EquipamentoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reparos_OrcamentoId",
+                table: "Reparos",
+                column: "OrcamentoId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Clientes");
-
             migrationBuilder.DropTable(
                 name: "FornecedorPecas");
 
@@ -355,19 +397,25 @@ namespace API_assistencia_tecnica.Migrations
                 name: "ReparoEquipamentos");
 
             migrationBuilder.DropTable(
-                name: "Fornecedores");
+                name: "ReparoPecas");
 
             migrationBuilder.DropTable(
-                name: "Orcamentos");
+                name: "Fornecedores");
 
             migrationBuilder.DropTable(
                 name: "Pecas");
 
             migrationBuilder.DropTable(
-                name: "Equipamentos");
+                name: "Reparos");
 
             migrationBuilder.DropTable(
-                name: "Reparos");
+                name: "Orcamentos");
+
+            migrationBuilder.DropTable(
+                name: "Clientes");
+
+            migrationBuilder.DropTable(
+                name: "Equipamentos");
         }
     }
 }

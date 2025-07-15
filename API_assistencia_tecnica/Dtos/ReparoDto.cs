@@ -6,29 +6,37 @@ namespace API_assistencia_tecnica.Dtos
     {
         public int Id { get; set; }
 
-        [Required] public string? NomeCliente { get; set; }
-        [Required] public string? Cpf { get; set; }
-        [Required] public string? Rg { get; set; }
-        [Required] public string? Telefone { get; set; }
-        [Required] public string? Rua { get; set; }
-        [Required] public string? Bairro { get; set; }
-        [Required] public string? Cidade { get; set; }
-        [Required] public string? Cep { get; set; }
+        // Relacionamentos
+        [Required] public int ClienteId { get; set; }
+        [Required] public int EquipamentoId { get; set; }
+        public int? OrcamentoId { get; set; } // Opcional, caso venha de um orçamento
 
-        [Required] public string? NomeEquipamento { get; set; }
-        [Required] public string? Modelo { get; set; }
-        [Required] public string? Fabricante { get; set; }
-        [Required] public int AnoFabricacao { get; set; }
-        [Required] public string? Voltagem { get; set; }
-        [Required] public string? Amperagem { get; set; }
-
-        [Required] public string? Pecas { get; set; }
+        // Dados específicos do reparo
         [Required] public string? FormaDePagamento { get; set; }
         [Required] public string? PrazoDeEntrega { get; set; }
         public string? Observacao { get; set; }
+        public string? Diagnostico { get; set; }
+        public string? SolucaoAplicada { get; set; }
 
+        // Valores
         [Required] public decimal ValorSemDesconto { get; set; }
         [Required] public decimal ValorComDesconto { get; set; }
+
+        // Controle de datas
+        public DateTime DataInicio { get; set; }
+        public DateTime? DataConclusao { get; set; }
+        public DateTime? DataEntrega { get; set; }
+        public string Status { get; set; } = "Iniciado";
+
+        // Dados do cliente (somente leitura para exibição)
+        public string? NomeCliente { get; set; }
+        public string? CpfCliente { get; set; }
+        public string? TelefoneCliente { get; set; }
+
+        // Dados do equipamento (somente leitura para exibição)
+        public string? NomeEquipamento { get; set; }
+        public string? ModeloEquipamento { get; set; }
+        public string? FabricanteEquipamento { get; set; }
     }
 }
 

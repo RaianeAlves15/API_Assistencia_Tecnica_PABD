@@ -47,13 +47,37 @@ namespace API_assistencia_tecnica.Controllers
             return Ok(atualizado);
         }
 
+        // ✅ DELETE MELHORADO - Com tratamento de erro
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var sucesso = await _service.DeleteAsync(id);
-            if (!sucesso)
-                return NotFound("Equipamento não encontrado.");
-            return NoContent();
+            try
+            {
+                var sucesso = await _service.DeleteAsync(id);
+                if (!sucesso)
+                    return NotFound("Equipamento não encontrado.");
+                return NoContent();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new
+                {
+                    error = "Não foi possível excluir",
+                    message = ex.Message
+                });
+            }
+        }
+
+        // ✅ NOVO ENDPOINT - Verificar se pode deletar
+        [HttpGet("{id}/can-delete")]
+        public async Task<IActionResult> CanDelete(int id)
+        {
+            var (canDelete, reason) = await _service.CanDeleteAsync(id);
+            return Ok(new
+            {
+                canDelete = canDelete,
+                reason = reason
+            });
         }
     }
 }

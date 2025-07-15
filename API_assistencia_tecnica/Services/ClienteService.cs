@@ -17,6 +17,45 @@ namespace API_assistencia_tecnica.Services
             _mapper = mapper;
         }
 
+        // ... outros métodos iguais ...
+
+        // ✅ DELETE MELHORADO - Verificar dependências
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null) return false;
+
+            // ✅ Verificar se existem orçamentos ou reparos relacionados
+            var temOrcamentos = await _context.Orcamentos.AnyAsync(o => o.ClienteId == id);
+            var temReparos = await _context.Reparos.AnyAsync(r => r.ClienteId == id);
+
+            if (temOrcamentos || temReparos)
+            {
+                throw new InvalidOperationException($"Não é possível excluir o cliente. Existem {(temOrcamentos ? "orçamentos" : "")} {(temOrcamentos && temReparos ? "e " : "")} {(temReparos ? "reparos" : "")} vinculados a este cliente.");
+            }
+
+            _context.Clientes.Remove(cliente);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        // ✅ NOVO MÉTODO - Verificar se pode deletar
+        public async Task<(bool CanDelete, string Reason)> CanDeleteAsync(int id)
+        {
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null) return (false, "Cliente não encontrado.");
+
+            var orcamentosCount = await _context.Orcamentos.CountAsync(o => o.ClienteId == id);
+            var reparosCount = await _context.Reparos.CountAsync(r => r.ClienteId == id);
+
+            if (orcamentosCount > 0 || reparosCount > 0)
+            {
+                return (false, $"Cliente possui {orcamentosCount} orçamento(s) e {reparosCount} reparo(s) vinculados.");
+            }
+
+            return (true, "Pode ser excluído.");
+        }
+
         public async Task<List<ClienteDto>> GetAllAsync()
         {
             var clientes = await _context.Clientes.ToListAsync();
@@ -45,16 +84,6 @@ namespace API_assistencia_tecnica.Services
             _mapper.Map(dto, cliente);
             await _context.SaveChangesAsync();
             return _mapper.Map<ClienteDto>(cliente);
-        }
-
-        public async Task<bool> DeleteAsync(int id)
-        {
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente == null) return false;
-
-            _context.Clientes.Remove(cliente);
-            await _context.SaveChangesAsync();
-            return true;
         }
 
         public async Task<bool> ExistsAsync(int id)
